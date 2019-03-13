@@ -27,6 +27,8 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import freemarker.template.TemplateException;
+
 class GeneratorTests {
 
 	private String path = "application.properties";
@@ -48,9 +50,10 @@ class GeneratorTests {
 	}
 
 	@Test
-	void testClassDefinition() throws IOException {
+	void testClassDefinition() throws IOException, TemplateException {
 
 		when(config.getPackage()).thenReturn("de.kreth.property2java");
+		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 
 		StringWriter out = new StringWriter();
 		when(config.outWriter(anyString())).thenReturn(out);
@@ -68,7 +71,7 @@ class GeneratorTests {
 			if (line.trim().startsWith("package")) {
 				linePackage = line;
 			}
-			else if (line.trim().startsWith("public interface")) {
+			else if (line.trim().startsWith("public enum")) {
 				lineClass = line;
 			}
 			if (line.contains("{")) {
@@ -89,12 +92,12 @@ class GeneratorTests {
 				Matchers.stringContainsInOrder(Arrays.asList("package", "de.kreth.property2java", ";")));
 
 		assertThat(lineClass,
-				Matchers.stringContainsInOrder(Arrays.asList("public", "interface", "Application_Properties")));
+				Matchers.stringContainsInOrder(Arrays.asList("public", "enum", "Application_Properties")));
 
 	}
 
 	@Test
-	void testOneInputGeneratesOneOutput() throws IOException {
+	void testOneInputGeneratesOneOutput() throws IOException, TemplateException {
 
 		Writer out = mock(Writer.class);
 		Writer nonOut = mock(Writer.class);
@@ -106,7 +109,7 @@ class GeneratorTests {
 	}
 
 	@Test
-	void testKeys() throws IOException {
+	void testKeys() throws IOException, TemplateException {
 
 		StringWriter out = new StringWriter();
 		when(config.outWriter(anyString())).thenReturn(out);

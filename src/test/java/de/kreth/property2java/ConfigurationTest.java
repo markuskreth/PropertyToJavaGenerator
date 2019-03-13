@@ -33,12 +33,14 @@ class ConfigurationTest {
 
 	@Test
 	void testPathMapping() {
+		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 		String className = config.mapFilenameToClassName("application.properties");
 		assertEquals("Application_Properties", className);
 	}
 
 	@Test
 	void testPathMappingLocalized() {
+		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 		String className = config.mapFilenameToClassName("application_de_DE.properties");
 		assertEquals("Application_Properties", className);
 		className = config.mapFilenameToClassName("application_en_US.properties");
