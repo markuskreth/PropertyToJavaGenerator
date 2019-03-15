@@ -4,16 +4,19 @@
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import javax.annotation.processing.Generated;
+
 /**
- * Property key from ${fileName}
+ * Property keys from ${fileName}
  */
+@Generated(date = "${generation_date}", value = "${generator_name}")
 public enum ${classname} {
 
-<#list entries as entry>
+<#list entries as e>
 	/**
-	 * "${entry.value}"
+	 * ${e.key} = "${e.value}"
 	 */
-	${entry.key} ("${entry.value}")<#sep>,
+	${e.constant} ("${e.key}")<#sep>,
 </#sep>
 </#list>;
 
