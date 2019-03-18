@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +20,6 @@ class ConfigurationTest {
 
 	@BeforeEach
 	void initConfig() {
-
 		config = Mockito.mock(Configuration.class);
 	}
 
@@ -26,9 +27,11 @@ class ConfigurationTest {
 	void defaultWriterIsFileWriter() throws IOException {
 
 		when(config.outWriter(anyString())).thenCallRealMethod();
+		when(config.getRootPath()).thenReturn(new File(".").toPath());
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 
-		assertTrue(config.outWriter("application.properties") instanceof FileWriter);
+		Writer outWriter = config.outWriter("application.properties");
+		assertTrue(outWriter instanceof FileWriter);
 	}
 
 	@Test

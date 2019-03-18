@@ -27,8 +27,6 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import freemarker.template.TemplateException;
-
 class GeneratorTests {
 
 	private String path = "application.properties";
@@ -50,7 +48,7 @@ class GeneratorTests {
 	}
 
 	@Test
-	void testClassDefinition() throws IOException, TemplateException {
+	void testClassDefinition() throws IOException, GeneratorException {
 
 		when(config.getPackage()).thenReturn("de.kreth.property2java");
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
@@ -97,7 +95,7 @@ class GeneratorTests {
 	}
 
 	@Test
-	void testOneInputGeneratesOneOutput() throws IOException, TemplateException {
+	void testOneInputGeneratesOneOutput() throws IOException, GeneratorException {
 
 		Writer out = mock(Writer.class);
 		Writer nonOut = mock(Writer.class);
@@ -109,13 +107,13 @@ class GeneratorTests {
 	}
 
 	@Test
-	void testKeys() throws IOException, TemplateException {
+	void testKeys() throws IOException, GeneratorException {
 
 		StringWriter out = new StringWriter();
 		when(config.outWriter(anyString())).thenReturn(out);
 		generator.start();
 
-		List<String> lines = out.toString().lines().filter(line -> line.contains(" String "))
+		List<String> lines = out.toString().lines().filter(line -> line.contains(" (\""))
 				.collect(Collectors.toList());
 
 		assertEquals(21, lines.size());
@@ -123,7 +121,8 @@ class GeneratorTests {
 		assertLineMatch(lines, "label_addarticle", "label.addarticle");
 		assertLineMatch(lines, "label_user_register", "label.user.register");
 		assertLineMatch(lines, "message_article_priceerror", "message.article.priceerror");
-		assertLineMatch(lines, "message_invoiceitem_startbeforeend", "message.invoiceitem.startbeforeend");
+		assertLineMatch(lines, "message_invoiceitem_startbeforeend",
+				"message.invoiceitem.startbeforeend");
 		assertLineMatch(lines, "message_invoiceitem_allfieldsmustbeset",
 				"message.invoiceitem.allfieldsmustbeset");
 	}
@@ -133,18 +132,17 @@ class GeneratorTests {
 				.findFirst();
 		assertTrue(found.isPresent(), "No line found with key = " + key);
 		final String line = found.get().trim();
-		int indexEquals = line.indexOf('=');
+		int indexEquals = line.indexOf('(');
 		String value = line.substring(indexEquals + 1).trim().substring(1);
-		value = value.substring(0, value.length() - 2);
+		value = value.substring(0, value.length() - 3);
 		assertEquals(expected, value, "Line \"" + line + "\" don't match expected Value \"" + expected + "\"");
 
-		assertEquals(';', line.charAt(line.length() - 1), "Line \"" + line + "\" don't end with ;");
 	}
 
 	private boolean keyMatches(String line, String key) {
 		line = line.toLowerCase();
 		key = key.toLowerCase();
-		return line.contains(" " + key + " ");
+		return line.contains("\t" + key + " ");
 	}
 
 	private StringReader testProperties() {

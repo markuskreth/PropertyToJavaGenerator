@@ -1,5 +1,6 @@
 package de.kreth.property2java;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -34,14 +35,21 @@ public class Generator {
 		}
 	}
 
-	public void start() throws IOException, TemplateException {
+	public void start() throws IOException, GeneratorException {
 
 		for (Map.Entry<String, Reader> entry : config.getInput().entrySet()) {
 			String fileName = entry.getKey();
-			Writer out = config.outWriter(fileName);
-			Properties properties = new Properties();
-			properties.load(entry.getValue());
-			generate(properties, out, fileName, config);
+			try (Writer out = config.outWriter(new File(fileName).getName())) {
+
+				Properties properties = new Properties();
+				properties.load(entry.getValue());
+				try {
+					generate(properties, out, fileName, config);
+				}
+				catch (TemplateException e) {
+					throw new GeneratorException("Error configuring Engine", e);
+				}
+			}
 		}
 	}
 
@@ -72,7 +80,7 @@ public class Generator {
 		template.process(root, out);
 	}
 
-	public static void main(String[] args) throws IOException, TemplateException {
+	public static void main(String[] args) throws IOException, GeneratorException {
 		Generator generator = new Generator(ArgumentConfiguration.parse(args));
 		generator.start();
 	}
@@ -102,6 +110,11 @@ public class Generator {
 
 		public String getValue() {
 			return value;
+		}
+
+		@Override
+		public String toString() {
+			return "Entry [constant=" + constant + ", key=" + key + ", value=" + value + "]";
 		}
 
 	}

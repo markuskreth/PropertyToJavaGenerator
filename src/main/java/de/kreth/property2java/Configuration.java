@@ -34,7 +34,7 @@ public interface Configuration {
 	Path getRootPath();
 
 	default Writer outWriter(String fileName) throws IOException {
-		return new FileWriter(new File(getRootPath().toFile(), mapFilenameToClassName(fileName)));
+		return new FileWriter(new File(getRootPath().toFile(), mapFilenameToClassName(fileName) + ".java"));
 	}
 
 	default String mapFilenameToClassName(String fileName) {
