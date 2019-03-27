@@ -1,6 +1,5 @@
 package de.kreth.property2java;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -39,7 +38,7 @@ public class Generator {
 
 		for (Map.Entry<String, Reader> entry : config.getInput().entrySet()) {
 			String fileName = entry.getKey();
-			try (Writer out = config.outWriter(new File(fileName).getName())) {
+			try (Writer out = config.outWriter(fileName)) {
 
 				Properties properties = new Properties();
 				properties.load(entry.getValue());
