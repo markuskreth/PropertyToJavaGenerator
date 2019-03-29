@@ -17,7 +17,7 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 
-<!-- 		<sonar.login>bb362ff4cf8428c336af659ad27445944c6ba4ac</sonar.login> -->
+		<sonar.login>3f3a1fa86ea83226b564895f3a8503f67e855440</sonar.login>
 		<sonar.jacoco.reportPaths>target/surefire-reports</sonar.jacoco.reportPaths>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
