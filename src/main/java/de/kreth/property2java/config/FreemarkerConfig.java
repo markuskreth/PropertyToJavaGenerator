@@ -1,4 +1,4 @@
-package de.kreth.property2java;
+package de.kreth.property2java.config;
 
 import java.io.IOException;
 
