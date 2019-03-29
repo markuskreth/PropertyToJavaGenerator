@@ -7,13 +7,12 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Path;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import org.apache.commons.text.WordUtils;
 
-public interface Configuration {
+import de.kreth.property2java.config.Regex;
 
-	static final Pattern REGEX = Pattern.compile("_[a-z]{2}(_[A-Z]{2})?\\.");
+public interface Configuration {
 
 	/**
 	 * Package for generated Java Classes eg. "de.kreth.property2java". If null - no package line is generated.
@@ -39,7 +38,7 @@ public interface Configuration {
 
 	default String mapFilenameToClassName(String fileName) {
 
-		String path = REGEX.matcher(fileName).replaceAll(".").replaceAll("\\.", "_").replaceAll(" ", "_");
+		String path = Regex.PATTERN.matcher(fileName).replaceAll(".").replaceAll("\\.", "_").replaceAll(" ", "_");
 		path = WordUtils.capitalize(path, '_');
 		return path;
 	}
