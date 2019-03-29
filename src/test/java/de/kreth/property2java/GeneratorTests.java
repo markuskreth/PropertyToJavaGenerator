@@ -3,8 +3,11 @@ package de.kreth.property2java;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -27,6 +30,9 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
 class GeneratorTests {
 
 	private String path = "application.properties";
@@ -43,6 +49,7 @@ class GeneratorTests {
 		config = mock(Configuration.class);
 		when(config.getInput()).thenReturn(input);
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
+		when(config.getTemplate()).thenCallRealMethod();
 
 		generator = new Generator(config);
 	}
@@ -91,6 +98,22 @@ class GeneratorTests {
 
 		assertThat(lineClass,
 				Matchers.stringContainsInOrder(Arrays.asList("public", "enum", "Application_Properties")));
+
+	}
+
+	@Test()
+	void testTemplateException() throws IOException, GeneratorException, TemplateException {
+
+		Writer out = mock(Writer.class);
+		when(config.outWriter(anyString())).thenReturn(out);
+
+		Template template = mock(Template.class);
+		when(config.getTemplate()).thenReturn(template);
+		doThrow(TemplateException.class).when(template).process(any(), any());
+
+		generator = new Generator(config);
+
+		assertThrows(GeneratorException.class, () -> generator.start());
 
 	}
 

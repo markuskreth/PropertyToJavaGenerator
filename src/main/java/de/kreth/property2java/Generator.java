@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import de.kreth.property2java.cli.ArgumentConfiguration;
-import de.kreth.property2java.config.FreemarkerConfig;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -28,7 +27,7 @@ public class Generator {
 	public Generator(Configuration config) {
 		this.config = config;
 		try {
-			template = FreemarkerConfig.INSTANCE.getTemplate();
+			template = config.getTemplate();
 		}
 		catch (IOException e) {
 			throw new IllegalStateException("Unable to load freemarker template", e);

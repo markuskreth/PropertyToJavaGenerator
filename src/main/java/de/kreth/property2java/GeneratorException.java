@@ -8,12 +8,4 @@ public class GeneratorException extends Exception {
 		super(message, cause);
 	}
 
-	public GeneratorException(String message) {
-		super(message);
-	}
-
-	public GeneratorException(Throwable cause) {
-		super(cause);
-	}
-
 }

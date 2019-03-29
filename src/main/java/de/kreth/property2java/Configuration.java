@@ -10,7 +10,9 @@ import java.util.Map;
 
 import org.apache.commons.text.WordUtils;
 
+import de.kreth.property2java.config.FreemarkerConfigImpl;
 import de.kreth.property2java.config.Regex;
+import freemarker.template.Template;
 
 public interface Configuration {
 
@@ -41,6 +43,10 @@ public interface Configuration {
 		String path = Regex.PATTERN.matcher(fileName).replaceAll(".").replaceAll("\\.", "_").replaceAll(" ", "_");
 		path = WordUtils.capitalize(path, '_');
 		return path;
+	}
+
+	default Template getTemplate() throws IOException {
+		return FreemarkerConfigImpl.INSTANCE.getTemplate();
 	}
 
 }
