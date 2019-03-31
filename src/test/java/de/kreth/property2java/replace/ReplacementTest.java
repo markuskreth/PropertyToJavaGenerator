@@ -1,4 +1,4 @@
-package de.kreth.property2java;
+package de.kreth.property2java.replace;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,17 +19,12 @@ class ReplacementTest {
 
 	private Replacement labelLogout;
 
-	private Replacement captionInvoiceItemAdd;
-
 	private Replacement captionUserDetails;
 
 	@BeforeEach
 	void initTestItem() {
 		captionArticles = new Replacement("de.kreth.clubinvoice", "Application_Properties", "CAPTION_ARTICLES",
 				"CAPTION1_ARTICLES");
-		captionInvoiceItemAdd = new Replacement("de.kreth.clubinvoice", "Application_Properties",
-				"CAPTION_INVOICEITEM_ADD",
-				"CAPTION1_INVOICEITEM_ADD");
 		captionUserDetails = new Replacement("de.kreth.clubinvoice", "Application_Properties",
 				"CAPTION_USER_DETAILS",
 				"CAPTION1_USER_DETAILS");
