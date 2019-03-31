@@ -75,6 +75,13 @@ public class ArgumentConfiguration implements Configuration {
 
 		String packageName;
 
+		boolean replaceUsages;
+
+		/**
+		 * Target Directory Path.
+		 * @param target
+		 * @return
+		 */
 		public Builder setTarget(String target) {
 			this.target = target;
 			return this;
@@ -85,8 +92,23 @@ public class ArgumentConfiguration implements Configuration {
 			return this;
 		}
 
+		/**
+		 * Package to be used in generated Sources
+		 * @param packageName
+		 * @return
+		 */
 		public Builder setPackageName(String packageName) {
 			this.packageName = packageName;
+			return this;
+		}
+
+		/**
+		 * Search and replace usages of generated sources.
+		 * @param replaceUsages
+		 * @return
+		 */
+		public Builder setReplaceUsages(boolean replaceUsages) {
+			this.replaceUsages = replaceUsages;
 			return this;
 		}
 

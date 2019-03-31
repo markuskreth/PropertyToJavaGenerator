@@ -1,9 +1,11 @@
 package de.kreth.property2java;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.Writer;
 import java.nio.file.Path;
 import java.util.Map;
@@ -33,6 +35,16 @@ public interface Configuration {
 	 * @return
 	 */
 	Path getRootPath();
+
+	default Reader previousGenerated(String fileName) throws IOException {
+		File file = new File(getRootPath().toFile(), mapFilenameToClassName(fileName) + ".java");
+		if (file.exists()) {
+			return new FileReader(file);
+		}
+		else {
+			return new StringReader("");
+		}
+	}
 
 	default Writer outWriter(String fileName) throws IOException {
 		return new FileWriter(new File(getRootPath().toFile(), mapFilenameToClassName(fileName) + ".java"));

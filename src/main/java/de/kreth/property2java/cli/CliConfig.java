@@ -22,6 +22,7 @@ public class CliConfig {
 		retVal.addOption(Option.builder("t").longOpt("targetSourcePath").hasArg().required().build());
 		retVal.addOption(Option.builder("f").longOpt("files").hasArgs().required().valueSeparator(',').build());
 		retVal.addOption(Option.builder("p").longOpt("package").hasArg().required(false).build());
+		retVal.addOption(Option.builder("u").longOpt("replaceUsages").hasArg(false).required(false).build());
 		return retVal;
 	}
 
@@ -32,6 +33,7 @@ public class CliConfig {
 			CommandLine cmd = parser.parse(options, args);
 			builder.setTarget(cmd.getOptionValue("t", "."));
 			builder.setPackageName(cmd.getOptionValue("p"));
+			builder.setReplaceUsages(cmd.hasOption("u"));
 			for (String value : cmd.getOptionValues("f")) {
 				builder.addPropFile(value);
 			}
