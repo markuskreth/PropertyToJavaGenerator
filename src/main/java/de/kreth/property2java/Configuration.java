@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Map;
 
@@ -47,7 +48,12 @@ public interface Configuration {
 	}
 
 	default Writer outWriter(String fileName) throws IOException {
-		return new FileWriter(new File(getRootPath().toFile(), mapFilenameToClassName(fileName) + ".java"));
+		return new FileWriter(new File(getRootPath().toFile(), mapFilenameToClassName(fileName) + ".java"),
+				outputCharset());
+	}
+
+	default Charset outputCharset() {
+		return Charset.defaultCharset();
 	}
 
 	default String mapFilenameToClassName(String fileName) {
