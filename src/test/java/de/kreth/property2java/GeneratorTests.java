@@ -43,6 +43,7 @@ class GeneratorTests {
 		config = mock(Configuration.class);
 		when(config.getInput()).thenReturn(input);
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
+		when(config.outputCharset()).thenCallRealMethod();
 
 		generator = new Generator(config);
 	}

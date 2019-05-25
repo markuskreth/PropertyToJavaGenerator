@@ -5,6 +5,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -68,10 +69,10 @@ public class Generator {
 		root.put("entries", entries);
 
 		@SuppressWarnings("unchecked")
-		Enumeration<String> propertyNames = (Enumeration<String>) properties.propertyNames();
+		List<String> propertyNames = Collections.list((Enumeration<String>) properties.propertyNames());
+		Collections.sort(propertyNames);
 
-		while (propertyNames.hasMoreElements()) {
-			final String propertyKeyString = propertyNames.nextElement();
+		for (String propertyKeyString : propertyNames) {
 			final String propertyValue = properties.getProperty(propertyKeyString);
 
 			entries.add(new Entry(propertyKeyString.toUpperCase().replaceAll("[\\.-]", "_"), propertyKeyString,
@@ -85,6 +86,11 @@ public class Generator {
 		generator.start();
 	}
 
+	/**
+	 * Represents an Property Entry for the generated java class.
+	 * @author markus
+	 *
+	 */
 	public class Entry {
 
 		public final String constant;
@@ -93,6 +99,12 @@ public class Generator {
 
 		public final String value;
 
+		/**
+		 * Creates Property Entry data for the generated java class.
+		 * @param constant name for the created constant.
+		 * @param key property key
+		 * @param value property value
+		 */
 		public Entry(String constant, String key, String value) {
 			super();
 			this.constant = constant;

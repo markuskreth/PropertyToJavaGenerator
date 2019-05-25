@@ -29,6 +29,7 @@ class ConfigurationTest {
 		when(config.outWriter(anyString())).thenCallRealMethod();
 		when(config.getRootPath()).thenReturn(new File(".").toPath());
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
+		when(config.outputCharset()).thenCallRealMethod();
 
 		Writer outWriter = config.outWriter("application.properties");
 		assertTrue(outWriter instanceof FileWriter);
