@@ -15,38 +15,46 @@ import de.kreth.property2java.config.Regex;
 
 public interface Configuration {
 
-	/**
-	 * Package for generated Java Classes eg. "de.kreth.property2java". If null - no package line is generated.
-	 * @return
-	 */
-	String getPackage();
+    /**
+     * Package for generated Java Classes eg. "de.kreth.property2java". If null - no
+     * package line is generated.
+     *
+     * @return
+     */
+    String getPackage();
 
-	/**
-	 * Filename to InputReader Entries
-	 * @return
-	 */
-	Map<String, Reader> getInput();
+    /**
+     * Filename to InputReader Entries
+     *
+     * @return
+     */
+    Map<String, Reader> getInput();
 
-	/**
-	 * Path of java source folder.
-	 * @return
-	 */
-	Path getRootPath();
+    /**
+     * Path of java source folder.
+     *
+     * @return
+     */
+    Path getRootPath();
 
-	default Writer outWriter(String fileName) throws IOException {
-		return new FileWriter(new File(getRootPath().toFile(), mapFilenameToClassName(fileName) + ".java"),
-				outputCharset());
-	}
+    default Writer outWriter(String fileName) throws IOException {
+	return new FileWriter(new File(getRootPath().toFile(), mapFilenameToClassName(fileName) + ".java"),
+		outputCharset());
+    }
 
-	default Charset outputCharset() {
-		return Charset.defaultCharset();
-	}
+    default Charset outputCharset() {
+	return Charset.defaultCharset();
+    }
 
-	default String mapFilenameToClassName(String fileName) {
+    default String mapFilenameToClassName(String fileName) {
 
-		String path = Regex.PATTERN.matcher(fileName).replaceAll(".").replaceAll("\\.", "_").replaceAll(" ", "_");
-		path = WordUtils.capitalize(path, '_');
-		return path;
-	}
+	String path = Regex.PATTERN.matcher(fileName)
+		.replaceAll(".")
+		.replaceAll("\\.", "_")
+		.replaceAll(" ", "_")
+		.replaceAll("/", "_");
+	path = WordUtils.capitalize(path, '_');
+	return path;
+    }
 
 }

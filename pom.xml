@@ -14,12 +14,14 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>11</java.version>
 		<org.junit.jupiter>5.3.0-M1</org.junit.jupiter>
-		<org.slf4j>1.7.21</org.slf4j>
-		<org.apache.logging.log4j>2.17.1</org.apache.logging.log4j>
+		<org.slf4j>1.7.36</org.slf4j>
+		<org.apache.logging.log4j>2.17.2</org.apache.logging.log4j>
 
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 
+		<auto-service.version>1.0-rc2</auto-service.version>
+		
 		<sonar.login>3f3a1fa86ea83226b564895f3a8503f67e855440</sonar.login>
 		<sonar.jacoco.reportPaths>target/surefire-reports</sonar.jacoco.reportPaths>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -51,7 +53,7 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.28</version>
 		</dependency>
-
+		
 		<!-- LOGGING -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -136,33 +138,8 @@
 				<version>3.8.0</version>
 				<configuration>
 					<release>${java.version}</release>
+					<compilerArgs>-proc:none</compilerArgs>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.0.0-M3</version>
-			</plugin>
-
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
-				<executions>
-					<execution>
-						<id>default-jacoco-prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-jacoco-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
