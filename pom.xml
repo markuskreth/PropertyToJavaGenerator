@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.kreth.property2java</groupId>
@@ -19,16 +17,6 @@
 
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-
-		<auto-service.version>1.0-rc2</auto-service.version>
-		
-		<sonar.login>3f3a1fa86ea83226b564895f3a8503f67e855440</sonar.login>
-		<sonar.jacoco.reportPaths>target/surefire-reports</sonar.jacoco.reportPaths>
-		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
-		<sonar.exclusions>**/src/main/webapp/VAADIN/**/*</sonar.exclusions>
 
 	</properties>
 
@@ -53,7 +41,7 @@
 			<artifactId>freemarker</artifactId>
 			<version>2.3.28</version>
 		</dependency>
-		
+
 		<!-- LOGGING -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -130,6 +118,17 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>https://nexus.kreth-development.de/repository/maven-snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus-releases</id>
+			<url>https://nexus.kreth-development.de/repository/maven-releases/</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -143,5 +142,8 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<scm>
+		<developerConnection>scm:git:https://github.com/markuskreth/PropertyToJavaGenerator.git</developerConnection>
+		<connection>scm:git:https://github.com/markuskreth/PropertyToJavaGenerator.git</connection>
+	</scm>
 </project>
