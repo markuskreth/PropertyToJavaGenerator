@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.kreth.property2java</groupId>
 	<artifactId>PropertyToJavaGenerator</artifactId>
-	<version>2.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<properties>
 
@@ -145,6 +145,5 @@
 	<scm>
 		<developerConnection>scm:git:https://github.com/markuskreth/PropertyToJavaGenerator.git</developerConnection>
 		<connection>scm:git:https://github.com/markuskreth/PropertyToJavaGenerator.git</connection>
-	  <tag>PropertyToJavaGenerator-2.0.0</tag>
-  </scm>
+	</scm>
 </project>
