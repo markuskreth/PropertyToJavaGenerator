@@ -143,8 +143,7 @@
 		</plugins>
 	</build>
 	<scm>
-		<developerConnection>scm:git:https://github.com/markuskreth/PropertyToJavaGenerator.git</developerConnection>
-		<connection>scm:git:https://github.com/markuskreth/PropertyToJavaGenerator.git</connection>
-	  <tag>PropertyToJavaGenerator-2.0.0</tag>
+		<developerConnection>scm:git:git@kreth-development.de:markus/PropertyToJavaGenerator.git</developerConnection>
+		<connection>scm:git:git@kreth-development.de:markus/PropertyToJavaGenerator.git</connection>
   </scm>
 </project>
