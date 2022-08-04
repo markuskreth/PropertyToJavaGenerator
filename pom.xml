@@ -120,14 +120,15 @@
 
 	<distributionManagement>
 		<snapshotRepository>
-			<id>nexus-snapshots</id>
+			<id>kreth.snapshots</id>
 			<url>https://nexus.kreth-development.de/repository/maven-snapshots/</url>
 		</snapshotRepository>
 		<repository>
-			<id>nexus-releases</id>
+			<id>kreth.releases</id>
 			<url>https://nexus.kreth-development.de/repository/maven-releases/</url>
 		</repository>
 	</distributionManagement>
+
 
 	<build>
 		<plugins>
