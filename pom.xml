@@ -144,8 +144,7 @@
 		</plugins>
 	</build>
 	<scm>
-		<developerConnection>scm:git:https://gitea.kreth-development.de/markus/PropertyToJavaGenerator.git</developerConnection>
-		<connection>scm:git:https://gitea.kreth-development.de/markus/PropertyToJavaGenerator.git</connection>
-    <tag>PropertyToJavaGenerator-2.0.1</tag>
+		<developerConnection>scm:git:https://gitea.kreth-development.de/markus/PropertyToJavaGenerator_migration.git</developerConnection>
+		<connection>scm:git:https://gitea.kreth-development.de/markus/PropertyToJavaGenerator_migration.git</connection>
   </scm>
 </project>
