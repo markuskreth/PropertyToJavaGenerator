@@ -31,7 +31,7 @@ public class Generator {
     public Generator(Configuration config) {
 	this.config = config;
 	try {
-	    template = FreemarkerConfig.INSTANCE.getTemplate();
+	    template = FreemarkerConfig.INSTANCE.getTemplate(config.getFormat());
 	} catch (IOException e) {
 	    throw new IllegalStateException("Unable to load freemarker template", e);
 	}
@@ -62,6 +62,7 @@ public class Generator {
 	root.put("generation_date", dateTimeInstance.format(new Date()));
 	root.put("package", config.getPackage());
 	root.put("fileName", fileName);
+	root.put("bundle_base_name", fileName.substring(0, min(fileName.length(), fileName.lastIndexOf('.'))));
 	root.put("classname", config.mapFilenameToClassName(fileName));
 
 	List<Entry> entries = new ArrayList<>();
@@ -79,6 +80,14 @@ public class Generator {
 		    propertyValue));
 	}
 	template.process(root, out);
+    }
+
+    int min(int a, int b) {
+	int result = Math.min(a, b);
+	if (result < 0) {
+	    result = Math.max(a, b);
+	}
+	return result;
     }
 
     public static void main(String[] args) throws IOException, GeneratorException {

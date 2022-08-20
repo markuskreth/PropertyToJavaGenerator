@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Element;
@@ -26,17 +27,16 @@ public class ProcessorConfiguration implements Configuration {
     private final Filer filer;
     private final Element element;
     private final Map<String, Reader> input;
+    private final Format format;
 
     ProcessorConfiguration(Builder builder) throws IOException {
 	this.filer = builder.filer;
 	this.element = builder.element;
+	this.format = Objects.requireNonNullElse(builder.format, Format.WithUnaryOperatorParameter);
 	this.input = new HashMap<>();
 	for (String resource : builder.resourcenames) {
-
-	    FileObject ressource = filer.getResource(StandardLocation.CLASS_PATH, "",
-		    resource);
-	    String className = mapFilenameToClassName(resource);
-	    input.put(className, ressource.openReader(false));
+	    FileObject ressource = filer.getResource(StandardLocation.CLASS_PATH, "", resource);
+	    input.put(resource, ressource.openReader(false));
 	}
     }
 
@@ -50,6 +50,11 @@ public class ProcessorConfiguration implements Configuration {
 	    packageName = packageElement.getQualifiedName().toString();
 	}
 	return packageName;
+    }
+
+    @Override
+    public Format getFormat() {
+	return format;
     }
 
     @Override
@@ -67,7 +72,7 @@ public class ProcessorConfiguration implements Configuration {
     public Writer outWriter(String fileName) throws IOException {
 	String packageName = getPackage();
 	if (packageName != null && !packageName.isBlank()) {
-	    fileName = packageName + "." + fileName;
+	    fileName = packageName + "." + mapFilenameToClassName(fileName);
 	}
 	return filer.createSourceFile(fileName, element).openWriter();
     }
@@ -80,11 +85,17 @@ public class ProcessorConfiguration implements Configuration {
 	private final Filer filer;
 	private final Element element;
 	private final List<String> resourcenames;
+	private Format format = Format.WithUnaryOperatorParameter;
 
 	private Builder(Filer filer, Element element) {
 	    this.filer = filer;
 	    this.element = element;
 	    this.resourcenames = new ArrayList<>();
+	}
+
+	public Builder withFormat(Format format) {
+	    this.format = format;
+	    return this;
 	}
 
 	public Builder addAll(String[] resourceNames) {
