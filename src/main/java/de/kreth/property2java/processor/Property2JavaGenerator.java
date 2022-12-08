@@ -47,7 +47,8 @@ public class Property2JavaGenerator extends AbstractProcessor {
 	for (Element element : elementsAnnotatedWith) {
 	    GenerateProperty2Java generateAnnotation = element.getAnnotation(GenerateProperty2Java.class);
 	    String[] resources = generateAnnotation.resources();
-	    generateElementProperties(element, Arrays.asList(resources), Format.WithUnaryOperatorParameter);
+	    Format format = generateAnnotation.format();
+	    generateElementProperties(element, Arrays.asList(resources), format);
 	}
     }
 
