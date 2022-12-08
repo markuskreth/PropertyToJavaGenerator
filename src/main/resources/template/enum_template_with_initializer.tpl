@@ -8,6 +8,8 @@ import javax.annotation.processing.Generated;
 
 /**
  * Property keys from ${fileName}
+ * {@link #getValue()} gives the key for the entry, with {@link #getText()} the value for the key is given directly.
+ * This enum needs to be initialized before any use by {@link #init(UnaryOperator)}.
  */
 @Generated(date = "${generation_date}", value = "${generator_name}")
 public enum ${classname} {
@@ -19,7 +21,8 @@ public enum ${classname} {
 	${e.constant} ("${e.key}")<#sep>,
 </#sep>
 </#list>;
-    private static UnaryOperator<String> function;
+
+	private static UnaryOperator<String> function;
 	private final String value;
 
 	private ${classname} (String value) {

@@ -9,6 +9,8 @@ import javax.annotation.processing.Generated;
 
 /**
  * Property keys from ${fileName}
+ * {@link #getValue()} gives the key for the entry, with {@link #getText()} the value for the key is given directly.
+ * Initializationis generated also.
  */
 @Generated(date = "${generation_date}", value = "${generator_name}")
 public enum ${classname} {
