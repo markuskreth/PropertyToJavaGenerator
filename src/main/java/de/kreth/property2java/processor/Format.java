@@ -5,8 +5,8 @@ import java.util.PropertyResourceBundle;
 public enum Format {
 
     /**
-     * Offers a getString(UnaryOperator<String> resourceFunction) method to access
-     * the String value
+     * Offers a getString(UnaryOperator resourceFunction) method to access the
+     * String value
      */
     WithUnaryOperatorParameter,
     /**
@@ -20,8 +20,8 @@ public enum Format {
      */
     WithInnerPropertyLoader,
     /**
-     * Offers a static init(UnaryOperator<String> resourceFunction) method to offer
-     * a getText() method. The init method must be called before any getText() call.
+     * Offers a static init(UnaryOperator resourceFunction) method to offer a
+     * getText() method. The init method must be called before any getText() call.
      */
     WithInitializer
 }
