@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
  *
  */
 public @interface GenerateResourceBundleProperty2Java {
-    String resource();
+	String resource();
 
-    Format format();
+	Format format();
 }

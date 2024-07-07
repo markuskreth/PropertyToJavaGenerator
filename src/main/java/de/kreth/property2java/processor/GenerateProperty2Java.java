@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
  *
  */
 public @interface GenerateProperty2Java {
-    String[] resources();
+	String[] resources();
 
-    Format format() default Format.WithUnaryOperatorParameter;
+	Format format() default Format.WithUnaryOperatorParameter;
 }

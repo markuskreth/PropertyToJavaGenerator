@@ -35,12 +35,10 @@ public class CliConfig {
 			for (String value : cmd.getOptionValues("f")) {
 				builder.addPropFile(value);
 			}
-		}
-		catch (MissingOptionException e) {
+		} catch (MissingOptionException e) {
 			printHelp();
 			throw new IllegalStateException(e);
-		}
-		catch (ParseException e) {
+		} catch (ParseException e) {
 			throw new IOException("Unable to parse Arguments", e);
 		}
 	}

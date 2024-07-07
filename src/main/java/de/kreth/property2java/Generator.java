@@ -22,143 +22,137 @@ import freemarker.template.TemplateException;
 
 public class Generator {
 
-    private static final DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
+	private static final DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
 
-    private final Configuration config;
+	private final Configuration config;
 
-    private final Template template;
+	private final Template template;
 
-    public Generator(Configuration config) {
-	this.config = config;
-	try {
-	    template = FreemarkerConfig.INSTANCE.getTemplate(config.getFormat());
-	} catch (IOException e) {
-	    throw new IllegalStateException("Unable to load freemarker template", e);
-	}
-    }
-
-    public void start() throws IOException, GeneratorException {
-
-	for (Map.Entry<String, Reader> entry : config.getInput().entrySet()) {
-	    String fileName = entry.getKey();
-	    try (Writer out = config.outWriter(fileName)) {
-
-		Properties properties = new Properties();
-		properties.load(entry.getValue());
+	public Generator(Configuration config) {
+		this.config = config;
 		try {
-		    generate(properties, out, fileName, config);
-		} catch (TemplateException e) {
-		    throw new GeneratorException("Error configuring Engine", e);
+			template = FreemarkerConfig.INSTANCE.getTemplate(config.getFormat());
+		} catch (IOException e) {
+			throw new IllegalStateException("Unable to load freemarker template", e);
 		}
-	    }
 	}
-    }
 
-    void generate(Properties properties, Writer out, String fileName, Configuration config)
-	    throws IOException, TemplateException {
+	public void start() throws IOException, GeneratorException {
 
-	Map<String, Object> root = new HashMap<>();
-	root.put("generator_name", getClass().getName());
-	root.put("generation_date", dateTimeInstance.format(new Date()));
-	root.put("package", config.getPackage());
-	root.put("fileName", fileName);
-	root.put("bundle_base_name", fileName.substring(0, min(fileName.length(), fileName.lastIndexOf('.'))));
-	root.put("classname", config.mapFilenameToClassName(fileName));
+		for (Map.Entry<String, Reader> entry : config.getInput().entrySet()) {
+			String fileName = entry.getKey();
+			try (Writer out = config.outWriter(fileName)) {
 
-	List<Entry> entries = new ArrayList<>();
-
-	root.put("entries", entries);
-
-	@SuppressWarnings("unchecked")
-	List<String> propertyNames = Collections.list((Enumeration<String>) properties.propertyNames());
-	Collections.sort(propertyNames);
-
-	for (String propertyKeyString : propertyNames) {
-	    final String propertyValue = properties.getProperty(propertyKeyString);
-
-	    entries.add(new Entry(propertyKeyString.toUpperCase().replaceAll("[\\.-]", "_"), propertyKeyString,
-		    propertyValue));
+				Properties properties = new Properties();
+				properties.load(entry.getValue());
+				try {
+					generate(properties, out, fileName, config);
+				} catch (TemplateException e) {
+					throw new GeneratorException("Error configuring Engine", e);
+				}
+			}
+		}
 	}
-	template.process(root, out);
-    }
 
-    int min(int a, int b) {
-	int result = Math.min(a, b);
-	if (result < 0) {
-	    result = Math.max(a, b);
+	void generate(Properties properties, Writer out, String fileName, Configuration config)
+			throws IOException, TemplateException {
+
+		Map<String, Object> root = new HashMap<>();
+		root.put("generator_name", getClass().getName());
+		root.put("generation_date", dateTimeInstance.format(new Date()));
+		root.put("package", config.getPackage());
+		root.put("fileName", fileName);
+		root.put("bundle_base_name", fileName.substring(0, min(fileName.length(), fileName.lastIndexOf('.'))));
+		root.put("classname", config.mapFilenameToClassName(fileName));
+
+		List<Entry> entries = new ArrayList<>();
+
+		root.put("entries", entries);
+
+		@SuppressWarnings("unchecked")
+		List<String> propertyNames = Collections.list((Enumeration<String>) properties.propertyNames());
+		Collections.sort(propertyNames);
+
+		for (String propertyKeyString : propertyNames) {
+			final String propertyValue = properties.getProperty(propertyKeyString);
+
+			entries.add(new Entry(propertyKeyString.toUpperCase().replaceAll("[\\.-]", "_"), propertyKeyString,
+					propertyValue));
+		}
+		template.process(root, out);
 	}
-	return result;
-    }
 
-    public static void main(String[] args) throws IOException, GeneratorException {
-	Generator generator = new Generator(ArgumentConfiguration.parse(args));
-	generator.start();
-    }
+	int min(int a, int b) {
+		int result = Math.min(a, b);
+		if (result < 0) {
+			result = Math.max(a, b);
+		}
+		return result;
+	}
 
-    public static void generateFor(Class<?> locationClass, List<URL> rescources, String relativeTargetDir)
-	    throws IOException, GeneratorException {
+	public static void main(String[] args) throws IOException, GeneratorException {
+		Generator generator = new Generator(ArgumentConfiguration.parse(args));
+		generator.start();
+	}
 
-	ArgumentConfiguration.Builder config = new ArgumentConfiguration.Builder();
+	public static void generateFor(Class<?> locationClass, List<URL> rescources, String relativeTargetDir)
+			throws IOException, GeneratorException {
 
-	rescources
-		.stream()
-		.map(URL::getFile)
-		.map(File::new)
-		.map(File::getAbsolutePath)
-		.forEach(config::addPropFile);
+		ArgumentConfiguration.Builder config = new ArgumentConfiguration.Builder();
 
-	config.setPackageName(locationClass.getPackageName())
-		.setTarget(relativeTargetDir);
+		rescources.stream().map(URL::getFile).map(File::new).map(File::getAbsolutePath).forEach(config::addPropFile);
 
-	Generator g = new Generator(config.build());
-	g.start();
-    }
+		config.setPackageName(locationClass.getPackageName()).setTarget(relativeTargetDir);
 
-    /**
-     * Represents an Property Entry for the generated java class.
-     *
-     * @author markus
-     *
-     */
-    public class Entry {
-
-	public final String constant;
-
-	public final String key;
-
-	public final String value;
+		Generator g = new Generator(config.build());
+		g.start();
+	}
 
 	/**
-	 * Creates Property Entry data for the generated java class.
+	 * Represents an Property Entry for the generated java class.
 	 *
-	 * @param constant name for the created constant.
-	 * @param key      property key
-	 * @param value    property value
+	 * @author markus
+	 *
 	 */
-	public Entry(String constant, String key, String value) {
-	    super();
-	    this.constant = constant;
-	    this.key = key;
-	    this.value = value;
-	}
+	public class Entry {
 
-	public String getConstant() {
-	    return constant;
-	}
+		public final String constant;
 
-	public String getKey() {
-	    return key;
-	}
+		public final String key;
 
-	public String getValue() {
-	    return value;
-	}
+		public final String value;
 
-	@Override
-	public String toString() {
-	    return "Entry [constant=" + constant + ", key=" + key + ", value=" + value + "]";
-	}
+		/**
+		 * Creates Property Entry data for the generated java class.
+		 *
+		 * @param constant name for the created constant.
+		 * @param key      property key
+		 * @param value    property value
+		 */
+		public Entry(String constant, String key, String value) {
+			super();
+			this.constant = constant;
+			this.key = key;
+			this.value = value;
+		}
 
-    }
+		public String getConstant() {
+			return constant;
+		}
+
+		public String getKey() {
+			return key;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		@Override
+		public String toString() {
+			return "Entry [constant=" + constant + ", key=" + key + ", value=" + value + "]";
+		}
+
+	}
 
 }
