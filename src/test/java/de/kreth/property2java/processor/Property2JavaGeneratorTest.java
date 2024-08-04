@@ -18,29 +18,28 @@ import org.mockito.MockitoAnnotations;
 
 public class Property2JavaGeneratorTest {
 
-    private Property2JavaGenerator processor;
-    @Mock
-    private ProcessingEnvironment processingEnv;
-    @Mock
-    private RoundEnvironment roundEnv;
-    private Set<TypeElement> annotations;
-    @Mock
-    private Messager messanger;
+	private Property2JavaGenerator processor;
+	@Mock
+	private ProcessingEnvironment processingEnv;
+	@Mock
+	private RoundEnvironment roundEnv;
+	private Set<TypeElement> annotations;
+	@Mock
+	private Messager messanger;
 
-    @BeforeEach
-    void initProcesor() {
-	MockitoAnnotations.initMocks(this);
-	annotations = new HashSet<>();
+	@BeforeEach
+	void initProcesor() {
+		MockitoAnnotations.initMocks(this);
+		annotations = new HashSet<>();
 
-	processor = new Property2JavaGenerator();
-	processor.init(processingEnv);
-	when(processingEnv.getMessager()).thenReturn(messanger);
-    }
+		processor = new Property2JavaGenerator();
+		processor.init(processingEnv);
+		when(processingEnv.getMessager()).thenReturn(messanger);
+	}
 
-    @Test
-    void testGeneratorInitializedCorrectly() {
-	when(roundEnv.getElementsAnnotatedWith(ArgumentMatchers.any(Class.class)))
-		.thenReturn(annotations);
-	processor.process(annotations, roundEnv);
-    }
+	@Test
+	void testGeneratorInitializedCorrectly() {
+		when(roundEnv.getElementsAnnotatedWith(ArgumentMatchers.any(Class.class))).thenReturn(annotations);
+		processor.process(annotations, roundEnv);
+	}
 }

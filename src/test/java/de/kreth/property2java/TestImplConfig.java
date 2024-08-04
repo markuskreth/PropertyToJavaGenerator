@@ -23,5 +23,5 @@ class TestImplConfig implements Configuration {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
