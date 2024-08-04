@@ -45,8 +45,9 @@ class GeneratorTests {
 		input.put(path, testProperties());
 
 		config = Mockito.spy(TestImplConfig.class);
+		
 		when(config.getRootPath()).thenReturn(new File(".").toPath());
-		when(config.getFormat()).thenReturn(Format.WithInitializer);
+		when(config.getFormat()).thenReturn(Format.WithUnaryOperatorParameter);
 		when(config.getInput()).thenReturn(input);
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 		when(config.outputCharset()).thenCallRealMethod();
