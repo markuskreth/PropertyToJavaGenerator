@@ -16,18 +16,18 @@ import org.mockito.Mockito;
 
 class ConfigurationTest {
 
-	private Configuration config;
+	private TestImplConfig config;
 
 	@BeforeEach
 	void initConfig() {
-		config = Mockito.mock(Configuration.class);
+		config = Mockito.spy(TestImplConfig.class);
 	}
 
 	@Test
 	void defaultWriterIsFileWriter() throws IOException {
 
-		when(config.outWriter(anyString())).thenCallRealMethod();
 		when(config.getRootPath()).thenReturn(new File(".").toPath());
+		when(config.outWriter(anyString())).thenCallRealMethod();
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 		when(config.outputCharset()).thenCallRealMethod();
 
@@ -50,5 +50,4 @@ class ConfigurationTest {
 		className = config.mapFilenameToClassName("application_en_US.properties");
 		assertEquals("Application_Properties", className);
 	}
-
 }

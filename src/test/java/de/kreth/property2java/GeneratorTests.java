@@ -10,6 +10,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -26,6 +27,9 @@ import java.util.stream.Collectors;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import de.kreth.property2java.processor.Format;
 
 class GeneratorTests {
 
@@ -40,7 +44,9 @@ class GeneratorTests {
 	Map<String, Reader> input = new HashMap<>();
 	input.put(path, testProperties());
 
-	config = mock(Configuration.class);
+	config = Mockito.spy(TestImplConfig.class);
+	when(config.getRootPath()).thenReturn(new File(".").toPath());
+	when(config.getFormat()).thenReturn(Format.WithInitializer);
 	when(config.getInput()).thenReturn(input);
 	when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 	when(config.outputCharset()).thenCallRealMethod();
