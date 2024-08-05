@@ -1,6 +1,4 @@
-<#if package??>package ${package};
-
-</#if>import java.util.PropertyResourceBundle;
+<#include  "parts/package_part.tpl">import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import javax.annotation.processing.Generated;
@@ -10,17 +8,7 @@ import javax.annotation.processing.Generated;
  * {@link #getValue()} gives the key for the entry, with {@link #getText()} the value for the key is given directly.
  * Initializationis generated also.
  */
-@Generated(date = "${generation_date}", value = "${generator_name}")
-public enum ${classname} {
-
-<#list entries as e>
-	/**
-	 * ${e.key} = "${e.value}"
-	 */
-	${e.constant} ("${e.key}")<#sep>,
-</#sep>
-</#list>;
-
+<#include  "parts/enum_head_values.tpl">
     private static ResourceBundle bundle = PropertyResourceBundle.getBundle("${bundle_base_name}");
 
 	private final String value;

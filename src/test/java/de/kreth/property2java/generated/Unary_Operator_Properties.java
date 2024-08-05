@@ -11,7 +11,8 @@ import javax.annotation.processing.Generated;
  * {@link #getValue()} gives the key for the entry, with {@link #getString(UnaryOperator<String>)}
  * the value is given directly.
  */
-@Generated(date = "05.08.2024, 22:08:26", value = "de.kreth.property2java.Generator")
+
+@Generated(date = "05.08.2024, 22:43:54", value = "de.kreth.property2java.Generator")
 public enum Unary_Operator_Properties {
 
 	/**
@@ -99,7 +100,6 @@ public enum Unary_Operator_Properties {
 	 * message.user.passwordmissmatch = "Passwords don't match."
 	 */
 	MESSAGE_USER_PASSWORDMISSMATCH ("message.user.passwordmissmatch");
-
 	private final String value;
 
 	private Unary_Operator_Properties (String value) {

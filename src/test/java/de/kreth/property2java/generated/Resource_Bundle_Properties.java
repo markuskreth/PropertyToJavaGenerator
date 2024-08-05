@@ -10,7 +10,8 @@ import javax.annotation.processing.Generated;
  * {@link #getValue()} gives the key for the entry, with {@link #getText()} the value for the key is given directly.
  * Initializationis generated also.
  */
-@Generated(date = "05.08.2024, 22:08:26", value = "de.kreth.property2java.Generator")
+
+@Generated(date = "05.08.2024, 22:43:54", value = "de.kreth.property2java.Generator")
 public enum Resource_Bundle_Properties {
 
 	/**
@@ -98,7 +99,6 @@ public enum Resource_Bundle_Properties {
 	 * message.user.passwordmissmatch = "Passwords don't match."
 	 */
 	MESSAGE_USER_PASSWORDMISSMATCH ("message.user.passwordmissmatch");
-
     private static ResourceBundle bundle = PropertyResourceBundle.getBundle("resource_bundle");
 
 	private final String value;

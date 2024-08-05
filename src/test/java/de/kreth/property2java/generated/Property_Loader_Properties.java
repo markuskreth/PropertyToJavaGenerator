@@ -9,7 +9,8 @@ import javax.annotation.processing.Generated;
 /**
  * Property keys from property_loader.properties
  */
-@Generated(date = "05.08.2024, 22:08:26", value = "de.kreth.property2java.Generator")
+
+@Generated(date = "05.08.2024, 22:43:54", value = "de.kreth.property2java.Generator")
 public enum Property_Loader_Properties {
 
 	/**
@@ -97,7 +98,6 @@ public enum Property_Loader_Properties {
 	 * message.user.passwordmissmatch = "Passwords don't match."
 	 */
 	MESSAGE_USER_PASSWORDMISSMATCH ("message.user.passwordmissmatch");
-
 	private Property_Loader_Properties (String value) {
 		this.value = value;
 	}

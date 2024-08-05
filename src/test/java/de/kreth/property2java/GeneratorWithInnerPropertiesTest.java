@@ -134,7 +134,7 @@ public class GeneratorWithInnerPropertiesTest {
 				Matchers.stringContainsInOrder(Arrays.asList("private", "static", "Properties", "properties", "=", "new Properties()", ";")));
 
 		assertThat(load,
-				Matchers.containsString("properties.load(Application_Properties.class.getResourceAsStream(\"application.properties\"));"));
+				Matchers.containsString("properties.load(Application_Properties.class.getResourceAsStream(\"/application.properties\"));"));
 
 	}
 	

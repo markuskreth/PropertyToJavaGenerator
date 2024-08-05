@@ -1,6 +1,4 @@
-<#if package??>package ${package};
-
-</#if>import java.io.IOException;
+<#include "parts/package_part.tpl">import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Properties;
 
@@ -9,17 +7,7 @@ import javax.annotation.processing.Generated;
 /**
  * Property keys from ${fileName}
  */
-@Generated(date = "${generation_date}", value = "${generator_name}")
-public enum ${classname} {
-
-<#list entries as e>
-	/**
-	 * ${e.key} = "${e.value}"
-	 */
-	${e.constant} ("${e.key}")<#sep>,
-</#sep>
-</#list>;
-
+<#include  "parts/enum_head_values.tpl">
 	private ${classname} (String value) {
 		this.value = value;
 	}

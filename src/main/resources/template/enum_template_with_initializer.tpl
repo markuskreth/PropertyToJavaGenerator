@@ -1,6 +1,4 @@
-<#if package??>package ${package};
-
-</#if>import java.util.Properties;
+<#include  "parts/package_part.tpl">import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -11,17 +9,7 @@ import javax.annotation.processing.Generated;
  * {@link #getValue()} gives the key for the entry, with {@link #getText()} the value for the key is given directly.
  * This enum needs to be initialized before any use by {@link #init(UnaryOperator)}.
  */
-@Generated(date = "${generation_date}", value = "${generator_name}")
-public enum ${classname} {
-
-<#list entries as e>
-	/**
-	 * ${e.key} = "${e.value}"
-	 */
-	${e.constant} ("${e.key}")<#sep>,
-</#sep>
-</#list>;
-
+<#include  "parts/enum_head_values.tpl">
 	private static UnaryOperator<String> function;
 	private final String value;
 
