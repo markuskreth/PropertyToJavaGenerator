@@ -1,9 +1,6 @@
 <#if package??>package ${package};
 
 </#if>import java.util.Properties;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
 
 import javax.annotation.processing.Generated;
 
@@ -21,11 +18,20 @@ public enum ${classname} {
 </#sep>
 </#list>;
 
-	private final String value;
-
 	private ${classname} (String value) {
 		this.value = value;
 	}
+
+	private static Properties properties = new Properties();
+	static {
+		try {
+			properties.load(${classname}.class.getResourceAsStream("${fileName}"));
+		} catch (IOException e) {
+			throw new UncheckedIOException(e);
+		}
+	}
+	
+	private final String value;
 
 	/**
 	 * Represented Key in property File.
@@ -35,14 +41,12 @@ public enum ${classname} {
 		return value;
 	}
 
-    private static ResourceBundle bundle = PropertyResourceBundle.getBundle("${bundle_base_name}");
-
 	/**
 	 * The Text for this Key from PropertyResourceBundle
 	 * @return human readable text
 	 */
     public String getText() {
-		return bundle.getString(value);
+		return properties.getProperty(value);
     }
 
 }
