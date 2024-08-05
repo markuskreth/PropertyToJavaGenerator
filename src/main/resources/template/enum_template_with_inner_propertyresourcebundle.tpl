@@ -1,9 +1,7 @@
 <#if package??>package ${package};
 
-</#if>import java.util.Properties;
-import java.util.PropertyResourceBundle;
+</#if>import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
 
 import javax.annotation.processing.Generated;
 
@@ -23,6 +21,8 @@ public enum ${classname} {
 </#sep>
 </#list>;
 
+    private static ResourceBundle bundle = PropertyResourceBundle.getBundle("${bundle_base_name}");
+
 	private final String value;
 
 	private ${classname} (String value) {
@@ -36,8 +36,6 @@ public enum ${classname} {
 	public String getValue() {
 		return value;
 	}
-
-    private static ResourceBundle bundle = PropertyResourceBundle.getBundle("${bundle_base_name}");
 
 	/**
 	 * The Text for this Key from PropertyResourceBundle

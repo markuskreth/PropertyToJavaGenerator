@@ -1,6 +1,11 @@
 package de.kreth.property2java;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.StringReader;
+
+import de.kreth.property2java.generated.GenerateTheTest;
 
 public class TestPropertiesSource {
 
@@ -23,4 +28,18 @@ public class TestPropertiesSource {
 				+ "message.user.passwordmissmatch         = Passwords don't match.\r\n" + "");
 	}
 	
+	public static void main(String[] args) throws IOException {
+		File dir = new File("D:\\Markus\\programmierung\\workspace_clubhelper\\PropertyToJavaGenerator\\src\\test\\resources");
+
+		try (FileWriter out = new FileWriter(new File(dir, GenerateTheTest.PROPERTY_LOADER_PROPERTIES))) {
+			testProperties().transferTo(out);
+		}
+		
+		try (FileWriter out = new FileWriter(new File(dir, GenerateTheTest.UNARY_OPERATOR_PROPERTIES))) {
+			testProperties().transferTo(out);
+		}
+		try (FileWriter out = new FileWriter(new File(dir, GenerateTheTest.RESOURCE_BUNDLE))) {
+			testProperties().transferTo(out);
+		}
+	}
 }

@@ -1,6 +1,8 @@
 <#if package??>package ${package};
 
-</#if>import java.util.Properties;
+</#if>import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.util.Properties;
 
 import javax.annotation.processing.Generated;
 
@@ -25,7 +27,7 @@ public enum ${classname} {
 	private static Properties properties = new Properties();
 	static {
 		try {
-			properties.load(${classname}.class.getResourceAsStream("${fileName}"));
+			properties.load(${classname}.class.getResourceAsStream("/${fileName}"));
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		}
