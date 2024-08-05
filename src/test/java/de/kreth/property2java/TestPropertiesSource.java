@@ -22,4 +22,5 @@ public class TestPropertiesSource {
 				+ "message.user.loginfailure              = Login Error! Wrong user or password?\r\n"
 				+ "message.user.passwordmissmatch         = Passwords don't match.\r\n" + "");
 	}
+	
 }

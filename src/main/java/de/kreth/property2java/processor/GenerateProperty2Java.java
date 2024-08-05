@@ -6,6 +6,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import de.kreth.property2java.Format;
+
 @Target(TYPE)
 @Retention(RetentionPolicy.SOURCE)
 /**

@@ -1,4 +1,4 @@
-package de.kreth.property2java.processor;
+package de.kreth.property2java;
 
 import java.util.PropertyResourceBundle;
 

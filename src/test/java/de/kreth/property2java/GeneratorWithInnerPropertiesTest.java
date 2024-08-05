@@ -30,8 +30,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import de.kreth.property2java.processor.Format;
-
 public class GeneratorWithInnerPropertiesTest {
 
 	private String path = "application.properties";

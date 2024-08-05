@@ -16,6 +16,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic.Kind;
 
+import de.kreth.property2java.Format;
 import de.kreth.property2java.GeneratorException;
 
 @SupportedAnnotationTypes({ "de.kreth.property2java.processor.GenerateProperty2Java",

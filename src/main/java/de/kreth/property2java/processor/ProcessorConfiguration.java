@@ -19,6 +19,7 @@ import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 
 import de.kreth.property2java.Configuration;
+import de.kreth.property2java.Format;
 import de.kreth.property2java.Generator;
 import de.kreth.property2java.GeneratorException;
 

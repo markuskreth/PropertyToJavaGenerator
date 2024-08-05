@@ -12,7 +12,6 @@ import java.util.Map;
 import org.apache.commons.text.WordUtils;
 
 import de.kreth.property2java.config.Regex;
-import de.kreth.property2java.processor.Format;
 
 public interface Configuration {
 
