@@ -12,7 +12,7 @@ import javax.annotation.processing.Generated;
  * the value is given directly.
  */
 
-@Generated(date = "05.08.2024, 22:43:54", value = "de.kreth.property2java.Generator")
+@Generated(date = "06.08.2024, 23:03:48", value = "de.kreth.property2java.Generator")
 public enum Unary_Operator_Properties {
 
 	/**
@@ -99,7 +99,11 @@ public enum Unary_Operator_Properties {
 	/**
 	 * message.user.passwordmissmatch = "Passwords don't match."
 	 */
-	MESSAGE_USER_PASSWORDMISSMATCH ("message.user.passwordmissmatch");
+	MESSAGE_USER_PASSWORDMISSMATCH ("message.user.passwordmissmatch"),
+	/**
+	 * message.with.five.placeholders = "Third is first{2}, then last "{4}", second={1}, fourth={3} and first is last={0}"
+	 */
+	MESSAGE_WITH_FIVE_PLACEHOLDERS ("message.with.five.placeholders");
 	private final String value;
 
 	private Unary_Operator_Properties (String value) {

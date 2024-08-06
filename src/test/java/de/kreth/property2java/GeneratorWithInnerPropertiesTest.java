@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
@@ -119,8 +120,9 @@ public class GeneratorWithInnerPropertiesTest {
 		while (sourceTokenizer.hasMoreTokens()) {
 			String line = sourceTokenizer.nextToken();
 			if (line.contains("Properties") 
-					&& !line.contains("import") 
-					&& !line.contains("enum") 
+					&& !line.contains("import")
+					&& !line.contains("enum")
+					&& !line.contains("@link")
 					&& !line.contains("class")) {
 				declaration = line;
 			} else if (line.contains(".load")) {
@@ -159,7 +161,7 @@ public class GeneratorWithInnerPropertiesTest {
 
 		List<String> lines = out.toString().lines().filter(line -> line.contains(" (\"")).collect(Collectors.toList());
 
-		assertEquals(21, lines.size());
+		assertEquals(22, lines.size());
 		assertLineMatch(lines, "label", "label");
 		assertLineMatch(lines, "label_addarticle", "label.addarticle");
 		assertLineMatch(lines, "label_user_register", "label.user.register");

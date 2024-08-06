@@ -7,11 +7,11 @@ import java.util.Properties;
 import javax.annotation.processing.Generated;
 
 /**
- * Property keys from property_loader.properties
+ * Property keys from property_loader_options.properties
  */
 
 @Generated(date = "06.08.2024, 23:03:48", value = "de.kreth.property2java.Generator")
-public enum Property_Loader_Properties {
+public enum Property_Loader_Options_Properties {
 
 	/**
 	 * label = ""
@@ -102,14 +102,14 @@ public enum Property_Loader_Properties {
 	 * message.with.five.placeholders = "Third is first{2}, then last "{4}", second={1}, fourth={3} and first is last={0}"
 	 */
 	MESSAGE_WITH_FIVE_PLACEHOLDERS ("message.with.five.placeholders");
-	private Property_Loader_Properties (String value) {
+	private Property_Loader_Options_Properties (String value) {
 		this.value = value;
 	}
 
 	private static Properties properties = new Properties();
 	static {
 		try {
-			properties.load(Property_Loader_Properties.class.getResourceAsStream("/property_loader.properties"));
+			properties.load(Property_Loader_Options_Properties.class.getResourceAsStream("/property_loader_options.properties"));
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		}
@@ -132,4 +132,72 @@ public enum Property_Loader_Properties {
 		return properties.getProperty(value);
     }
 
-}
+	/**
+	 * The text for this key from {@link Properties} with args as replacements of placeholders.
+	 * <p>Placeholder must be defined as {0}, {1} etc.
+	 * @return human readable text
+	 */
+	public String getText(Object...objects) {
+		String property = properties.getProperty(value);
+		return doReplacements(property, objects);
+	}
+
+	private String doReplacements(String property, Object...objects) {
+		StringBuilder text = new StringBuilder();
+		int index = property.indexOf('{');
+		text.append(property.substring(0, index));
+		
+		while (index >= 0) {
+			index++;
+			int endIndex = withEndIndex(index, property);
+			if (endIndex >0) {
+				String theIndex = property.substring(index, endIndex);
+				int withIndex = Integer.valueOf(theIndex);
+				if (withIndex+1> objects.length) {
+					throw new IllegalStateException("No Argument for Index {" + theIndex
+							+ "}" + " at Position=" + (index - 1) + " in \"" + property + "\"");
+				}
+				text.append(objects[withIndex].toString());
+				index = property.indexOf('{', endIndex);
+				if (index <0) {
+					text.append(property.substring(endIndex + 1));
+				} else {
+					text.append(property.substring(endIndex + 1, index));
+				}
+			} else {
+				endIndex = index;
+				
+				index = property.indexOf('{', index);
+				if (index <0) {
+					text.append('{');
+					text.append(property.substring(endIndex));
+				}
+			}
+		}
+		return text.toString();
+	}
+	
+	/**
+	 * extracts the end index, if (and only if) the closing } exists and 
+	 * between the indicee an integer value exists. 
+	 * @param index
+	 * @param property
+	 * @return -1 if invalid or not existing
+	 */
+	private int withEndIndex(int index, String property) {
+		
+		int result = -1;
+		int endIndex = property.indexOf('}', index);
+		if (endIndex >index) {
+			String between = property.substring(index, endIndex);
+			if (between.length() > 0) {
+				result = endIndex;
+				for(int i=0; i<between.length(); i++) {
+					if (Character.isDigit(between.charAt(i)) == false) {
+						return -1;
+					}
+				}
+			}
+		}
+		return result;
+	}}

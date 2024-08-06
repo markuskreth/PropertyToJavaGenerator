@@ -21,13 +21,7 @@ import javax.annotation.processing.Generated;
 		function = resourceFunction;
 	}
 	
-	/**
-	 * Represented Key in property File.
-	 * @return key
-	 */
-	public String getValue() {
-		return value;
-	}
+<#include  "parts/key_value_part.tpl">
 
 	/**
 	* Resolves the value for this key. 

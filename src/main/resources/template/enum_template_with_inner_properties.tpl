@@ -23,20 +23,15 @@ import javax.annotation.processing.Generated;
 	
 	private final String value;
 
-	/**
-	 * Represented Key in property File.
-	 * @return key
-	 */
-	public String getValue() {
-		return value;
-	}
+<#include  "parts/key_value_part.tpl">
 
 	/**
-	 * The Text for this Key from PropertyResourceBundle
+	 * The text for this key from {@link Properties}
 	 * @return human readable text
 	 */
     public String getText() {
 		return properties.getProperty(value);
     }
 
+<#include  "parts/withOptions.tpl">
 }

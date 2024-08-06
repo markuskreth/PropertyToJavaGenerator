@@ -64,6 +64,9 @@ public class Generator {
 		root.put("fileName", fileName);
 		root.put("bundle_base_name", fileName.substring(0, min(fileName.length(), fileName.lastIndexOf('.'))));
 		root.put("classname", config.mapFilenameToClassName(fileName));
+		if (config.getOptions().isEmpty() == false) {
+			root.put("options", config.getOptions());
+		}
 
 		List<Entry> entries = new ArrayList<>();
 

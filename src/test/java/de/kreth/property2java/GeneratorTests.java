@@ -120,7 +120,7 @@ class GeneratorTests {
 
 		List<String> lines = out.toString().lines().filter(line -> line.contains(" (\"")).collect(Collectors.toList());
 
-		assertEquals(21, lines.size());
+		assertEquals(22, lines.size());
 		assertLineMatch(lines, "label", "label");
 		assertLineMatch(lines, "label_addarticle", "label.addarticle");
 		assertLineMatch(lines, "label_user_register", "label.user.register");

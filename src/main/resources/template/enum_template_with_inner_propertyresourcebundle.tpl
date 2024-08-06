@@ -17,13 +17,7 @@ import javax.annotation.processing.Generated;
 		this.value = value;
 	}
 
-	/**
-	 * Represented Key in property File.
-	 * @return key
-	 */
-	public String getValue() {
-		return value;
-	}
+<#include  "parts/key_value_part.tpl">
 
 	/**
 	 * The Text for this Key from PropertyResourceBundle

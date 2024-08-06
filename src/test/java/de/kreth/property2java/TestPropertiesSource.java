@@ -25,7 +25,8 @@ public class TestPropertiesSource {
 				+ "message.invoiceitem.startbeforeend     = End must be later than start.\r\n"
 				+ "message.user.create.success            = Thanks {0} created!\r\n"
 				+ "message.user.loginfailure              = Login Error! Wrong user or password?\r\n"
-				+ "message.user.passwordmissmatch         = Passwords don't match.\r\n" + "");
+				+ "message.user.passwordmissmatch         = Passwords don't match.\r\n"
+				+ "message.with.five.placeholders         = Third is first{2}, then last \"{4}\", second={1}, fourth={3} and first is last={0}\r\n");
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -33,13 +34,21 @@ public class TestPropertiesSource {
 
 		try (FileWriter out = new FileWriter(new File(dir, GenerateTheTest.PROPERTY_LOADER_PROPERTIES))) {
 			testProperties().transferTo(out);
+			System.out.println("Generated: " + GenerateTheTest.PROPERTY_LOADER_PROPERTIES);
 		}
 		
 		try (FileWriter out = new FileWriter(new File(dir, GenerateTheTest.UNARY_OPERATOR_PROPERTIES))) {
 			testProperties().transferTo(out);
+			System.out.println("Generated: " + GenerateTheTest.UNARY_OPERATOR_PROPERTIES);
 		}
 		try (FileWriter out = new FileWriter(new File(dir, GenerateTheTest.RESOURCE_BUNDLE))) {
 			testProperties().transferTo(out);
+			System.out.println("Generated: " + GenerateTheTest.RESOURCE_BUNDLE);
 		}
+		try (FileWriter out = new FileWriter(new File(dir, GenerateTheTest.PROPERTY_LOADER_OPTIONS_PROPERTIES))) {
+			testProperties().transferTo(out);
+			System.out.println("Generated: " + GenerateTheTest.PROPERTY_LOADER_OPTIONS_PROPERTIES);
+		}
+		
 	}
 }

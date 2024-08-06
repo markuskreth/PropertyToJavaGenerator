@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.util.EnumSet;
 import java.util.Map;
 
 import org.apache.commons.text.WordUtils;
@@ -41,6 +42,10 @@ public interface Configuration {
 	 */
 	Path getRootPath();
 
+	default EnumSet<GeneratorOptions> getOptions() {
+		return EnumSet.noneOf(GeneratorOptions.class);
+	}
+	
 	default Writer outWriter(String fileName) throws IOException {
 		return new FileWriter(new File(getRootPath().toFile(), mapFilenameToClassName(fileName) + ".java"),
 				outputCharset());
