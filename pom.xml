@@ -127,11 +127,11 @@
 	<distributionManagement>
 		<snapshotRepository>
 			<id>kreth.snapshots</id>
-			<url>https://nexus.kreth-development.de/repository/maven-snapshots/</url>
+			<url>https://nexus.markuskreth.de/repository/maven-snapshots/</url>
 		</snapshotRepository>
 		<repository>
 			<id>kreth.releases</id>
-			<url>https://nexus.kreth-development.de/repository/maven-releases/</url>
+			<url>https://nexus.markuskreth.de/repository/maven-releases/</url>
 		</repository>
 	</distributionManagement>
 
@@ -149,8 +149,7 @@
 		</plugins>
 	</build>
 	<scm>
-		<developerConnection>scm:git:https://gitea.kreth-development.de/markus/PropertyToJavaGenerator_migration.git</developerConnection>
-		<connection>scm:git:https://gitea.kreth-development.de/markus/PropertyToJavaGenerator_migration.git</connection>
-    <tag>HEAD</tag>
+		<developerConnection>scm:git:https://github.com/markuskreth/PropertyToJavaGenerator.git</developerConnection>
+		<connection>scm:git:https://github.com/markuskreth/PropertyToJavaGenerator.git</connection>
   </scm>
 </project>
