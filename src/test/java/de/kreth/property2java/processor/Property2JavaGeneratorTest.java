@@ -12,10 +12,12 @@ import javax.lang.model.element.TypeElement;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class Property2JavaGeneratorTest {
 
 	private Property2JavaGenerator processor;
@@ -29,7 +31,6 @@ public class Property2JavaGeneratorTest {
 
 	@BeforeEach
 	void initProcesor() {
-		MockitoAnnotations.initMocks(this);
 		annotations = new HashSet<>();
 
 		processor = new Property2JavaGenerator();
@@ -37,6 +38,7 @@ public class Property2JavaGeneratorTest {
 		when(processingEnv.getMessager()).thenReturn(messanger);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testGeneratorInitializedCorrectly() {
 		when(roundEnv.getElementsAnnotatedWith(ArgumentMatchers.any(Class.class))).thenReturn(annotations);
