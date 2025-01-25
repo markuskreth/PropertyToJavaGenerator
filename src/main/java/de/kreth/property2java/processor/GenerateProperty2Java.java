@@ -7,6 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import de.kreth.property2java.Format;
+import de.kreth.property2java.GeneratorOptions;
 
 @Target(TYPE)
 @Retention(RetentionPolicy.SOURCE)
@@ -43,4 +44,6 @@ public @interface GenerateProperty2Java {
 	String[] resources();
 
 	Format format() default Format.WithUnaryOperatorParameter;
+
+	GeneratorOptions[] options() default {};
 }

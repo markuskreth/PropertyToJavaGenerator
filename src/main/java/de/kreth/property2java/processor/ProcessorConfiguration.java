@@ -6,6 +6,7 @@ import java.io.Writer;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import de.kreth.property2java.Configuration;
 import de.kreth.property2java.Format;
 import de.kreth.property2java.Generator;
 import de.kreth.property2java.GeneratorException;
+import de.kreth.property2java.GeneratorOptions;
 
 public class ProcessorConfiguration implements Configuration {
 
@@ -29,11 +31,13 @@ public class ProcessorConfiguration implements Configuration {
 	private final Element element;
 	private final Map<String, Reader> input;
 	private final Format format;
+	private final GeneratorOptions[] options;
 
 	ProcessorConfiguration(Builder builder) throws IOException {
 		this.filer = builder.filer;
 		this.element = builder.element;
 		this.format = Objects.requireNonNullElse(builder.format, Format.WithUnaryOperatorParameter);
+		this.options = builder.options;
 		this.input = new HashMap<>();
 		for (String resource : builder.resourcenames) {
 			FileObject ressource = filer.getResource(StandardLocation.CLASS_PATH, "", resource);
@@ -64,6 +68,11 @@ public class ProcessorConfiguration implements Configuration {
 	}
 
 	@Override
+	public EnumSet<GeneratorOptions> getOptions() {
+		return EnumSet.copyOf(Arrays.asList(options));
+	}
+	
+	@Override
 	public Path getRootPath() {
 		throw new UnsupportedOperationException(
 				"For Annotation Processor this is not supported as outWriter is overwritten.");
@@ -83,6 +92,7 @@ public class ProcessorConfiguration implements Configuration {
 	}
 
 	static class Builder {
+		public GeneratorOptions[] options;
 		private final Filer filer;
 		private final Element element;
 		private final List<String> resourcenames;
@@ -99,6 +109,11 @@ public class ProcessorConfiguration implements Configuration {
 			return this;
 		}
 
+		public Builder withOptions(GeneratorOptions[] options) {
+			this.options = options;
+			return this;
+		}
+		
 		public Builder addAll(String[] resourceNames) {
 			this.resourcenames.addAll(Arrays.asList(resourceNames));
 			return this;

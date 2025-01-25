@@ -3,6 +3,7 @@ import java.io.UncheckedIOException;
 import java.util.Properties;
 
 import javax.annotation.processing.Generated;
+<#include  "parts/additionalImports.tpl">
 
 /**
  * Property keys from ${fileName}

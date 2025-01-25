@@ -7,11 +7,11 @@ import java.util.Properties;
 import javax.annotation.processing.Generated;
 
 /**
- * Property keys from property_loader_options.properties
+ * Property keys from property_loader_alloptions.properties
  */
 
 @Generated(date = "25.01.2025, 23:42:57", value = "de.kreth.property2java.Generator")
-public enum Property_Loader_Options_Properties {
+public enum Property_Loader_Alloptions_Properties {
 
 	/**
 	 * label = ""
@@ -102,14 +102,14 @@ public enum Property_Loader_Options_Properties {
 	 * message.with.five.placeholders = "Third is first{2}, then last "{4}", second={1}, fourth={3} and first is last={0}"
 	 */
 	MESSAGE_WITH_FIVE_PLACEHOLDERS ("message.with.five.placeholders");
-	private Property_Loader_Options_Properties (String value) {
+	private Property_Loader_Alloptions_Properties (String value) {
 		this.value = value;
 	}
 
 	private static Properties properties = new Properties();
 	static {
 		try {
-			properties.load(Property_Loader_Options_Properties.class.getResourceAsStream("/property_loader_options.properties"));
+			properties.load(Property_Loader_Alloptions_Properties.class.getResourceAsStream("/property_loader_alloptions.properties"));
 		} catch (IOException e) {
 			throw new UncheckedIOException(e);
 		}

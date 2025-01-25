@@ -18,6 +18,7 @@ import javax.tools.Diagnostic.Kind;
 
 import de.kreth.property2java.Format;
 import de.kreth.property2java.GeneratorException;
+import de.kreth.property2java.GeneratorOptions;
 
 @SupportedAnnotationTypes({ "de.kreth.property2java.processor.GenerateProperty2Java",
 		"de.kreth.property2java.processor.GenerateResourceBundleProperty2Javas",
@@ -46,7 +47,8 @@ public class Property2JavaGenerator extends AbstractProcessor {
 			GenerateProperty2Java generateAnnotation = element.getAnnotation(GenerateProperty2Java.class);
 			String[] resources = generateAnnotation.resources();
 			Format format = generateAnnotation.format();
-			generateElementProperties(element, Arrays.asList(resources), format);
+			GeneratorOptions[] options = generateAnnotation.options();
+			generateElementProperties(element, Arrays.asList(resources), format, options);
 		}
 	}
 
@@ -63,15 +65,19 @@ public class Property2JavaGenerator extends AbstractProcessor {
 					.getAnnotation(GenerateResourceBundleProperty2Javas.class).value();
 			for (GenerateResourceBundleProperty2Java generateResourceBundleProperty2Java : value) {
 				List<String> resources = Arrays.asList(generateResourceBundleProperty2Java.resource());
-				generateElementProperties(element, resources, generateResourceBundleProperty2Java.format());
+				generateElementProperties(element, resources, generateResourceBundleProperty2Java.format(), generateResourceBundleProperty2Java.options());
 			}
 		}
 	}
 
-	private void generateElementProperties(Element element, List<String> resources, Format format) {
+	private void generateElementProperties(Element element, List<String> resources, Format format, GeneratorOptions[]  options) {
 		processingEnv.getMessager().printMessage(Kind.NOTE, "Generating Java for " + Arrays.asList(resources));
 		try {
-			ProcessorConfiguration.builder(processingEnv.getFiler(), element).addAll(resources).withFormat(format)
+			ProcessorConfiguration
+					.builder(processingEnv.getFiler(), element)
+					.addAll(resources)
+					.withFormat(format)
+					.withOptions(options)
 					.startGeneration();
 		} catch (IOException | GeneratorException e) {
 			StringWriter out = new StringWriter();

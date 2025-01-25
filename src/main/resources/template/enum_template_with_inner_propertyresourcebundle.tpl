@@ -2,6 +2,7 @@
 import java.util.ResourceBundle;
 
 import javax.annotation.processing.Generated;
+<#include  "parts/additionalImports.tpl">
 
 /**
  * Property keys from ${fileName}
@@ -27,4 +28,5 @@ import javax.annotation.processing.Generated;
 		return bundle.getString(value);
     }
 
+<#include  "parts/withOptions.tpl">
 }

@@ -10,7 +10,7 @@ import javax.annotation.processing.Generated;
  * Property keys from property_loader.properties
  */
 
-@Generated(date = "06.08.2024, 23:03:48", value = "de.kreth.property2java.Generator")
+@Generated(date = "25.01.2025, 23:42:57", value = "de.kreth.property2java.Generator")
 public enum Property_Loader_Properties {
 
 	/**

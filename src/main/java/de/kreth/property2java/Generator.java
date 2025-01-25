@@ -7,6 +7,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import de.kreth.property2java.cli.ArgumentConfiguration;
 import de.kreth.property2java.config.FreemarkerConfig;
@@ -66,6 +68,13 @@ public class Generator {
 		root.put("classname", config.mapFilenameToClassName(fileName));
 		if (config.getOptions().isEmpty() == false) {
 			root.put("options", config.getOptions());
+			List<String> imports = config.getOptions().stream()
+					.map(GeneratorOptions::getAdditionalImport)
+					.flatMap(Arrays::stream)
+					.collect(Collectors.toList());
+			if (imports.isEmpty() == false) {
+				root.put("imports", imports);
+			}
 		}
 
 		List<Entry> entries = new ArrayList<>();

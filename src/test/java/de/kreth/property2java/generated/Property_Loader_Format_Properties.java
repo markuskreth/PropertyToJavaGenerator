@@ -1,19 +1,20 @@
 package de.kreth.property2java.generated;
 
-import java.util.Properties;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
 
 import javax.annotation.processing.Generated;
+import java.text.MessageFormat;
+;
 
 /**
- * Property keys from unary_operator.properties
- * {@link #getValue()} gives the key for the entry, with {@link #getString(UnaryOperator<String>)}
- * the value is given directly.
+ * Property keys from property_loader_format.properties
+ * {@link #getValue()} gives the key for the entry, with {@link #getText()} the value for the key is given directly.
+ * Initializationis generated also.
  */
 
 @Generated(date = "25.01.2025, 23:42:57", value = "de.kreth.property2java.Generator")
-public enum Unary_Operator_Properties {
+public enum Property_Loader_Format_Properties {
 
 	/**
 	 * label = ""
@@ -104,9 +105,11 @@ public enum Unary_Operator_Properties {
 	 * message.with.five.placeholders = "Third is first{2}, then last "{4}", second={1}, fourth={3} and first is last={0}"
 	 */
 	MESSAGE_WITH_FIVE_PLACEHOLDERS ("message.with.five.placeholders");
+    private static ResourceBundle bundle = PropertyResourceBundle.getBundle("property_loader_format");
+
 	private final String value;
 
-	private Unary_Operator_Properties (String value) {
+	private Property_Loader_Format_Properties (String value) {
 		this.value = value;
 	}
 
@@ -114,18 +117,22 @@ public enum Unary_Operator_Properties {
 	 * Represented Key in property File.
 	 * @return key
 	 */
-	public String getValue() {
+	public String getKey() {
 		return value;
 	}
-
 	/**
-	 * Resolves the value for this key from the parameter function.
-	 * <p>
-	 * e.g. <code>Unary_Operator_Properties.getString(resBundle::getString)</code>
-	 * @param resourceFunction {@link Properties#getProperty(String)} or {@link ResourceBundle#getString(String)}
-	 * @return
+	 * The Text for this Key from PropertyResourceBundle
+	 * @return human readable text
 	 */
-	public String getString(UnaryOperator<String> resourceFunction) {
-		return resourceFunction.apply(value);
-	}
-}
+    public String getText() {
+		return bundle.getString(value);
+    }
+
+
+    private MessageFormat messageFormat = null;
+    public String format(Object...objects) {
+    	if (messageFormat == null) {
+    		messageFormat = new MessageFormat(getText());
+    	}
+    	return messageFormat.format(objects, new StringBuffer(), null).toString();
+    }}

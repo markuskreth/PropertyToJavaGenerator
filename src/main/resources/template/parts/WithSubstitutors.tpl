@@ -4,7 +4,7 @@
 	 * @return human readable text
 	 */
 	public String getText(Object...objects) {
-		String property = properties.getProperty(value);
+		String property = getText();
 		return doReplacements(property, objects);
 	}
 
