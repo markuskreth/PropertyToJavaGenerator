@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@interface GenerateResourceBundleProperty2Javas {
+public @interface GenerateResourceBundleProperty2Javas {
 
 	GenerateResourceBundleProperty2Java[] value();
 }

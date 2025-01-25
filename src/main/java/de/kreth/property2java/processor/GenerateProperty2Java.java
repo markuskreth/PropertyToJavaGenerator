@@ -15,6 +15,8 @@ import de.kreth.property2java.Format;
  * muss nur die Abhängigkeit eingebunden werden und die Annotation in einer
  * Klasse verwendet werden, in deren Package die neuen Klassen generiert werden.
  *
+ * 
+ * 
  * Für die Ausgabe der Prozessornachrichten muss folgendes im maven compiler
  * konfiguriert werden:
  *
