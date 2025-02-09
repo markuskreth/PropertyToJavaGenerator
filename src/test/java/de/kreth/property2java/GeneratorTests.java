@@ -1,10 +1,13 @@
 package de.kreth.property2java;
 
 import static de.kreth.property2java.TestPropertiesSource.testProperties;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -17,6 +20,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,35 +31,89 @@ import java.util.stream.Collectors;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class GeneratorTests {
 
 	private String path = "application.properties";
 
+	@Mock
 	private Configuration config;
-
-	private Generator generator;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		Map<String, Reader> input = new HashMap<>();
 		input.put(path, testProperties());
 
-		config = Mockito.spy(TestImplConfig.class);
-		
 		when(config.getRootPath()).thenReturn(new File(".").toPath());
 		when(config.getFormat()).thenReturn(Format.WithUnaryOperatorParameter);
 		when(config.getInput()).thenReturn(input);
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 		when(config.outputCharset()).thenCallRealMethod();
+		when(config.getOptions()).thenReturn(EnumSet.noneOf(GeneratorOptions.class));
 
-		generator = new Generator(config);
 	}
 
 	@Test
+	void testAllOptionsConfiguration() throws IOException, GeneratorException, TemplateException {
+
+		Template template = mock(Template.class);
+		Generator generator = new Generator(config, template);
+		when(config.getOptions()).thenReturn(EnumSet.allOf(GeneratorOptions.class));
+
+		StringWriter out = new StringWriter();
+		when(config.outWriter(anyString())).thenReturn(out);
+
+		@SuppressWarnings("unchecked")
+		ArgumentCaptor<Map<String, Object>> rootCaptior = ArgumentCaptor.forClass(Map.class);
+		generator.start();
+		verify(template).process(rootCaptior.capture(), any(Writer.class));
+		Map<String, Object> root = rootCaptior.getValue();
+		@SuppressWarnings("unchecked")
+		EnumSet<GeneratorOptions> options = (EnumSet<GeneratorOptions>) root.get("options");
+		assertThat(options).contains(GeneratorOptions.WithMessageFormatter, GeneratorOptions.WithSubstitutors);
+
+		@SuppressWarnings("unchecked")
+		List<String> imports = (List<String>) root.get("imports");
+		assertThat(imports).contains("java.text.MessageFormat");
+	}
+
+	@Test
+	void testWithSubstitutorsNoImportsConfiguration() throws IOException, GeneratorException, TemplateException {
+
+		Template template = mock(Template.class);
+		Generator generator = new Generator(config, template);
+		when(config.getOptions()).thenReturn(EnumSet.of(GeneratorOptions.WithSubstitutors));
+
+		StringWriter out = new StringWriter();
+		when(config.outWriter(anyString())).thenReturn(out);
+
+		@SuppressWarnings("unchecked")
+		ArgumentCaptor<Map<String, Object>> rootCaptior = ArgumentCaptor.forClass(Map.class);
+		generator.start();
+		verify(template).process(rootCaptior.capture(), any(Writer.class));
+		Map<String, Object> root = rootCaptior.getValue();
+		@SuppressWarnings("unchecked")
+		EnumSet<GeneratorOptions> options = (EnumSet<GeneratorOptions>) root.get("options");
+		assertThat(options).contains(GeneratorOptions.WithSubstitutors);
+
+		assertFalse(root.containsKey("imports"));
+	}
+	
+	@Test
 	void testClassDefinition() throws IOException, GeneratorException {
 
+		Generator generator = new Generator(config);
 		when(config.getPackage()).thenReturn("de.kreth.property2java");
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 
@@ -102,6 +160,7 @@ class GeneratorTests {
 	@Test
 	void testOneInputGeneratesOneOutput() throws IOException, GeneratorException {
 
+		Generator generator = new Generator(config);
 		Writer out = mock(Writer.class);
 		Writer nonOut = mock(Writer.class);
 		when(config.outWriter(anyString())).thenReturn(out, nonOut);
@@ -114,6 +173,7 @@ class GeneratorTests {
 	@Test
 	void testKeys() throws IOException, GeneratorException {
 
+		Generator generator = new Generator(config);
 		StringWriter out = new StringWriter();
 		when(config.outWriter(anyString())).thenReturn(out);
 		generator.start();

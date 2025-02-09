@@ -1,5 +1,6 @@
 package de.kreth.property2java;
 
+import static de.kreth.property2java.TestPropertiesSource.testProperties;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,27 +17,31 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
-
-import static de.kreth.property2java.TestPropertiesSource.testProperties;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class GeneratorWithInnerPropertiesTest {
 
 	private String path = "application.properties";
 
+	@Mock
 	private Configuration config;
-
 	private Generator generator;
 
 	@BeforeEach
@@ -44,15 +49,14 @@ public class GeneratorWithInnerPropertiesTest {
 		Map<String, Reader> input = new HashMap<>();
 		input.put(path, testProperties());
 
-		config = Mockito.spy(TestImplConfig.class);
-		
 		when(config.getRootPath()).thenReturn(new File(".").toPath());
 		when(config.getFormat()).thenReturn(Format.WithInnerPropertyLoader);
 		when(config.getInput()).thenReturn(input);
 		when(config.mapFilenameToClassName(anyString())).thenCallRealMethod();
 		when(config.outputCharset()).thenCallRealMethod();
+		when(config.getOptions()).thenReturn(EnumSet.noneOf(GeneratorOptions.class));
 
-		generator = new Generator(config);
+		this.generator = new Generator(config);
 	}
 
 

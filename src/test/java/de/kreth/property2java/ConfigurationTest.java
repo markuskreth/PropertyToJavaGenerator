@@ -10,18 +10,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class ConfigurationTest {
 
-	private TestImplConfig config;
-
-	@BeforeEach
-	void initConfig() {
-		config = Mockito.spy(TestImplConfig.class);
-	}
+	@Mock
+	private Configuration config;
 
 	@Test
 	void defaultWriterIsFileWriter() throws IOException {

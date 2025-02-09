@@ -31,9 +31,18 @@ public class Generator {
 	private final Template template;
 
 	public Generator(Configuration config) {
+		this(config, createTemplate(config));
+	}
+
+	public Generator(Configuration config, Template template) {
+		super();
 		this.config = config;
+		this.template = template;
+	}
+
+	private static Template createTemplate(Configuration config) {
 		try {
-			template = FreemarkerConfig.INSTANCE.getTemplate(config.getFormat());
+			return FreemarkerConfig.INSTANCE.getTemplate(config.getFormat());
 		} catch (IOException e) {
 			throw new IllegalStateException("Unable to load freemarker template", e);
 		}
