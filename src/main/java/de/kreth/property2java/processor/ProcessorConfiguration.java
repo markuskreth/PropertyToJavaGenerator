@@ -49,8 +49,7 @@ public class ProcessorConfiguration implements Configuration {
 	public String getPackage() {
 
 		String packageName = "";
-		if (element instanceof TypeElement) {
-			TypeElement typeElement = (TypeElement) element;
+		if (element instanceof TypeElement typeElement) {
 			PackageElement packageElement = (PackageElement) typeElement.getEnclosingElement();
 			packageName = packageElement.getQualifiedName().toString();
 		}

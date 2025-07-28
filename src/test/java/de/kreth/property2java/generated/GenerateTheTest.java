@@ -3,7 +3,6 @@ package de.kreth.property2java.generated;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +24,7 @@ public class GenerateTheTest {
 	public static final String RESOURCE_BUNDLE = "resource_bundle.properties";
 	
 	public static void main(String[] args) throws IOException, GeneratorException {
-		Path current = Paths.get(".", "src", "test", "java", "de", "kreth", "property2java", "generated").toAbsolutePath().normalize();
+		Path current = Path.of(".", "src", "test", "java", "de", "kreth", "property2java", "generated").toAbsolutePath().normalize();
 		System.out.println(current);
 		
 		withUnaryOperatorParameter(current);
