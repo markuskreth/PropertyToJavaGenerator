@@ -59,8 +59,7 @@ public interface Configuration {
 
 		String path = Regex.PATTERN.matcher(fileName).replaceAll(".").replaceAll("\\.", "_").replaceAll(" ", "_")
 				.replaceAll("/", "_");
-		path = WordUtils.capitalize(path, '_');
-		return path;
+		return WordUtils.capitalize(path, '_');
 	}
 
 }

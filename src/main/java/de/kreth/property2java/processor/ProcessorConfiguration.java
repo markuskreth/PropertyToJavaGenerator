@@ -90,7 +90,7 @@ public class ProcessorConfiguration implements Configuration {
 		return new Builder(filer, element);
 	}
 
-	static class Builder {
+	static final class Builder {
 		public GeneratorOptions[] options;
 		private final Filer filer;
 		private final Element element;

@@ -159,6 +159,9 @@
 		      <configuration>
 		        <activeRecipes>
 		          <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
+		          <recipe>org.openrewrite.staticanalysis.JavaApiBestPractices</recipe>
+		          <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
+		          <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
 		        </activeRecipes>
 		      </configuration>
 		      <dependencies>

@@ -20,9 +20,9 @@ import de.kreth.property2java.Format;
 import de.kreth.property2java.GeneratorException;
 import de.kreth.property2java.GeneratorOptions;
 
-@SupportedAnnotationTypes({ "de.kreth.property2java.processor.GenerateProperty2Java",
+@SupportedAnnotationTypes({"de.kreth.property2java.processor.GenerateProperty2Java",
 		"de.kreth.property2java.processor.GenerateResourceBundleProperty2Javas",
-		"de.kreth.property2java.processor.GenerateResourceBundleProperty2Java" })
+		"de.kreth.property2java.processor.GenerateResourceBundleProperty2Java"})
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class Property2JavaGenerator extends AbstractProcessor {
 

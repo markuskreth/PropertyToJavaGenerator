@@ -14,7 +14,7 @@ import java.util.Map;
 
 import de.kreth.property2java.Configuration;
 
-public class ArgumentConfiguration implements Configuration {
+public final class ArgumentConfiguration implements Configuration {
 
 	private final String packageName;
 
@@ -51,7 +51,7 @@ public class ArgumentConfiguration implements Configuration {
 	@Override
 	public Writer outWriter(String fileName) throws IOException {
 		File dir;
-		if (packageName != null && packageName.isBlank() == false) {
+		if (packageName != null && !packageName.isBlank()) {
 			dir = new File(rootPath.toFile(), packageName.replace('.', File.separatorChar));
 		} else {
 			dir = rootPath.toFile();

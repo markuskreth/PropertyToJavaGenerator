@@ -75,13 +75,13 @@ public class Generator {
 		root.put("fileName", fileName);
 		root.put("bundle_base_name", fileName.substring(0, min(fileName.length(), fileName.lastIndexOf('.'))));
 		root.put("classname", config.mapFilenameToClassName(fileName));
-		if (config.getOptions().isEmpty() == false) {
+		if (!config.getOptions().isEmpty()) {
 			root.put("options", config.getOptions());
 			List<String> imports = config.getOptions().stream()
 					.map(GeneratorOptions::getAdditionalImport)
 					.flatMap(Arrays::stream)
 					.collect(Collectors.toList());
-			if (imports.isEmpty() == false) {
+			if (!imports.isEmpty()) {
 				root.put("imports", imports);
 			}
 		}

@@ -15,7 +15,7 @@ public enum GeneratorOptions {
 	private final String[] additionalImport;
 
 	private GeneratorOptions(String... additionalImport) {
-		this.additionalImport = additionalImport!= null ? additionalImport : new String[] {};
+		this.additionalImport = additionalImport!= null ? additionalImport : new String[]{};
 	}
 	
 	String[] getAdditionalImport() {
