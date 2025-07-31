@@ -162,17 +162,24 @@
 		          <recipe>org.openrewrite.staticanalysis.JavaApiBestPractices</recipe>
 		          <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
 		          <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
+		          <recipe>org.openrewrite.recipes.rewrite.OpenRewriteRecipeBestPractices</recipe>
 		        </activeRecipes>
 		        <exclusions>
 					<exclusion>**/generated/**</exclusion>
 				</exclusions>
 		      </configuration>
+		      
 		      <dependencies>
 		        <dependency>
 		          <groupId>org.openrewrite.recipe</groupId>
 		          <artifactId>rewrite-migrate-java</artifactId>
 		          <version>3.14.1</version>
 		        </dependency>
+				<dependency>
+					<groupId>org.openrewrite.recipe</groupId>
+					<artifactId>rewrite-rewrite</artifactId>
+					<version>0.5.0</version>
+				</dependency>
 		      </dependencies>
 		    </plugin>
 		</plugins>

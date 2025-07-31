@@ -2,14 +2,9 @@ package de.kreth.property2java;
 
 import static de.kreth.property2java.TestPropertiesSource.testProperties;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
+
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -123,11 +119,11 @@ public class GeneratorWithInnerPropertiesTest {
 		String load = null;
 		while (sourceTokenizer.hasMoreTokens()) {
 			String line = sourceTokenizer.nextToken();
-			if (line.contains("Properties") 
-					&& !line.contains("import")
-					&& !line.contains("enum")
-					&& !line.contains("@link")
-					&& !line.contains("class")) {
+			if (line.contains("Properties") &&
+					!line.contains("import") &&
+					!line.contains("enum") &&
+					!line.contains("@link") &&
+					!line.contains("class")) {
 				declaration = line;
 			} else if (line.contains(".load")) {
 				load = line;
@@ -143,7 +139,7 @@ public class GeneratorWithInnerPropertiesTest {
 				Matchers.containsString("properties.load(Application_Properties.class.getResourceAsStream(\"/application.properties\"));"));
 
 	}
-	
+
 	@Test
 	void testOneInputGeneratesOneOutput() throws IOException, GeneratorException {
 

@@ -2,6 +2,8 @@ package de.kreth.property2java.cli;
 
 import java.io.IOException;
 
+
+import de.kreth.property2java.cli.ArgumentConfiguration.Builder;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -10,8 +12,6 @@ import org.apache.commons.cli.MissingOptionException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-
-import de.kreth.property2java.cli.ArgumentConfiguration.Builder;
 
 public class CliConfig {
 

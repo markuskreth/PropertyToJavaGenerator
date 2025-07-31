@@ -2,7 +2,9 @@ package de.kreth.property2java.config;
 
 import java.io.IOException;
 
+
 import de.kreth.property2java.Format;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 

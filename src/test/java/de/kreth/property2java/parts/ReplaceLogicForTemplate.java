@@ -1,12 +1,12 @@
 package de.kreth.property2java.parts;
 
-public class ReplaceLogicForTemplate {
+public final class ReplaceLogicForTemplate {
 
 	static String doReplacements(String property, Object...objects) {
 		StringBuilder text = new StringBuilder();
 		int index = property.indexOf('{');
 		text.append(property.substring(0, index));
-		
+
 		while (index >= 0) {
 			index++;
 			int endIndex = withEndIndex(index, property);
@@ -14,8 +14,8 @@ public class ReplaceLogicForTemplate {
 				String theIndex = property.substring(index, endIndex);
 				int withIndex = Integer.valueOf(theIndex);
 				if (withIndex+1> objects.length) {
-					throw new IllegalStateException("No Argument for Index {" + theIndex
-							+ "}" + " at Position=" + (index - 1) + " in \"" + property + "\"");
+					throw new IllegalStateException("No Argument for Index {" + theIndex +
+							"}" + " at Position=" + (index - 1) + " in \"" + property + "\"");
 				}
 				text.append(objects[withIndex].toString());
 				index = property.indexOf('{', endIndex);
@@ -26,7 +26,7 @@ public class ReplaceLogicForTemplate {
 				}
 			} else {
 				endIndex = index;
-				
+
 				index = property.indexOf('{', index);
 				if (index <0) {
 					text.append('{');
@@ -36,7 +36,7 @@ public class ReplaceLogicForTemplate {
 		}
 		return text.toString();
 	}
-	
+
 	/**
 	 * extracts the end index, if (and only if) the closing } exists and 
 	 * between the indicee an integer value exists. 
@@ -45,7 +45,7 @@ public class ReplaceLogicForTemplate {
 	 * @return -1 if invalid or not existing
 	 */
 	private static int withEndIndex(int index, String property) {
-		
+
 		int result = -1;
 		int endIndex = property.indexOf('}', index);
 		if (endIndex >index) {

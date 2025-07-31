@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import de.kreth.property2java.Configuration;
 
 public final class ArgumentConfiguration implements Configuration {

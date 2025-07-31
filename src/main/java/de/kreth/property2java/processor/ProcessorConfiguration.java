@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
 import javax.annotation.processing.Filer;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
+
 
 import de.kreth.property2java.Configuration;
 import de.kreth.property2java.Format;
@@ -70,7 +70,7 @@ public class ProcessorConfiguration implements Configuration {
 	public EnumSet<GeneratorOptions> getOptions() {
 		return EnumSet.copyOf(Arrays.asList(options));
 	}
-	
+
 	@Override
 	public Path getRootPath() {
 		throw new UnsupportedOperationException(
@@ -112,7 +112,7 @@ public class ProcessorConfiguration implements Configuration {
 			this.options = options;
 			return this;
 		}
-		
+
 		public Builder addAll(String[] resourceNames) {
 			this.resourcenames.addAll(Arrays.asList(resourceNames));
 			return this;

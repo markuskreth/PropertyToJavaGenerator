@@ -11,13 +11,13 @@ public enum GeneratorOptions {
 	 * Add a format Method, which uses and supports {@link MessageFormat}. 
 	 */
 	WithMessageFormatter("java.text.MessageFormat");
-	
+
 	private final String[] additionalImport;
 
 	private GeneratorOptions(String... additionalImport) {
 		this.additionalImport = additionalImport!= null ? additionalImport : new String[]{};
 	}
-	
+
 	String[] getAdditionalImport() {
 		return additionalImport;
 	}

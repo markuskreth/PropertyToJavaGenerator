@@ -1,11 +1,14 @@
 package de.kreth.property2java.parts;
 
-import static org.assertj.core.api.Assertions.*;
 import static de.kreth.property2java.parts.ReplaceLogicForTemplate.doReplacements;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+
 import org.junit.jupiter.api.Test;
 
 public class ReplaceLogicForTemplateTest {
-	
+
 	@Test
 	void testPlaceholderOnly() {
 		String property = "{0}";
@@ -78,5 +81,5 @@ public class ReplaceLogicForTemplateTest {
 			.hasMessageContaining("Position=5")	// Index of missing Placeholder
 			.hasMessageContaining(property);	// Orignal Text
 	}
-    
+
 }

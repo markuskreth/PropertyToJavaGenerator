@@ -7,6 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 import de.kreth.property2java.Format;
 import de.kreth.property2java.GeneratorOptions;
 
@@ -46,6 +47,6 @@ public @interface GenerateResourceBundleProperty2Java {
 	String resource();
 
 	Format format();
-	
+
 	GeneratorOptions[] options() default {};
 }

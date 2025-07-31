@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 
+
 import de.kreth.property2java.generated.GenerateTheTest;
 
 public class TestPropertiesSource {
@@ -39,7 +40,7 @@ public class TestPropertiesSource {
 				message.with.five.placeholders         = Third is first{2}, then last "{4}", second={1}, fourth={3} and first is last={0}
 				""");
 	}
-	
+
 	public static void main(String[] args) throws IOException {
 		File dir = new File("D:\\Markus\\programmierung\\workspace_clubhelper\\PropertyToJavaGenerator\\src\\test\\resources");
 
@@ -47,7 +48,7 @@ public class TestPropertiesSource {
 			testProperties().transferTo(out);
 			System.out.println("Generated: " + GenerateTheTest.PROPERTY_LOADER_PROPERTIES);
 		}
-		
+
 		try (FileWriter out = new FileWriter(new File(dir, GenerateTheTest.UNARY_OPERATOR_PROPERTIES))) {
 			testProperties().transferTo(out);
 			System.out.println("Generated: " + GenerateTheTest.UNARY_OPERATOR_PROPERTIES);
@@ -60,6 +61,6 @@ public class TestPropertiesSource {
 			testProperties().transferTo(out);
 			System.out.println("Generated: " + GenerateTheTest.PROPERTY_LOADER_OPTIONS_PROPERTIES);
 		}
-		
+
 	}
 }

@@ -17,8 +17,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+
 import de.kreth.property2java.cli.ArgumentConfiguration;
 import de.kreth.property2java.config.FreemarkerConfig;
+
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
