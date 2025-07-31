@@ -163,6 +163,9 @@
 		          <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
 		          <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
 		        </activeRecipes>
+		        <exclusions>
+					<exclusion>**/generated/**</exclusion>
+				</exclusions>
 		      </configuration>
 		      <dependencies>
 		        <dependency>

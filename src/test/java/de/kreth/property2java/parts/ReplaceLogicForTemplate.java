@@ -52,14 +52,17 @@ public class ReplaceLogicForTemplate {
 			String between = property.substring(index, endIndex);
 			if (between.length() > 0) {
 				result = endIndex;
-				for(int i=0; i<between.length(); i++) {
-					if (Character.isDigit(between.charAt(i)) == false) {
+				for (int i = 0; i < between.length(); i++) {
+					if (!Character.isDigit(between.charAt(i))) {
 						return -1;
 					}
 				}
 			}
 		}
 		return result;
+	}
+
+	private ReplaceLogicForTemplate() {
 	}
 
 }
