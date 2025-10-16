@@ -42,40 +42,40 @@ public class Property2JavaGeneratorTest {
 		when(processingEnv.getMessager()).thenReturn(messanger);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
 	void testGeneratorInitializedCorrectly() {
-		
+
 		GenerateProperty2Java an = mock(GenerateProperty2Java.class);
-		when(an.resources()).thenReturn(new String[] {});
+		when(an.resources()).thenReturn(new String[]{});
 		TypeElement element = mock(TypeElement.class);
 		when(element.getAnnotation(GenerateProperty2Java.class)).thenReturn(an);
-		
+
 		annotations.add(element);
-		
+
 		when(roundEnv.getElementsAnnotatedWith(ArgumentMatchers.any(Class.class))).thenReturn(annotations);
 		Element annotatedElement = mock(Element.class);
 		GenerateResourceBundleProperty2Javas value = new GenerateResourceBundleProperty2Javas() {
-			
+
 			@Override
 			public Class<? extends Annotation> annotationType() {
 				return null;
 			}
-			
+
 			@Override
 			public GenerateResourceBundleProperty2Java[] value() {
 				return new GenerateResourceBundleProperty2Java[0];
 			}
 		};
-		when(annotatedElement.getAnnotation(GenerateResourceBundleProperty2Javas.class)).thenReturn(value );
+		when(annotatedElement.getAnnotation(GenerateResourceBundleProperty2Javas.class)).thenReturn(value);
 		Set<Element> elements = new HashSet<>(List.of(annotatedElement));
-		
+
 		when(roundEnv.getElementsAnnotatedWith(GenerateResourceBundleProperty2Javas.class))
-			.thenReturn((Set)elements);
-		
+			.thenReturn((Set) elements);
+
 		processor.process(annotations, roundEnv);
-		
-		
+
+
 	}
 
 }

@@ -30,6 +30,7 @@ import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
+
 import org.apache.commons.cli.MissingOptionException;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -198,24 +199,24 @@ class GeneratorTests {
 
 		when(config.outWriter(anyString())).thenReturn(mock(Writer.class));
 		doThrow(new TemplateException(null)).when(template).process(any(Map.class), any(Writer.class));
-		
+
 		Generator generator = new Generator(config, template);
-		GeneratorException ex = assertThrows(GeneratorException.class, () -> generator.start());
+		GeneratorException ex = assertThrows(GeneratorException.class, generator::start);
 		assertThat(ex.getCause()).isInstanceOf(TemplateException.class);
 	}
 
 	@Test
 	void testMainMethod() throws IOException, GeneratorException {
 		Path source = Files.createTempFile(getClass().getSimpleName(), ".properties");
-		Generator.main(new String[] {"-t", "target", "-f", source.toString()});
+		Generator.main(new String[]{"-t", "target", "-f", source.toString()});
 	}
 
 	@Test
 	void testMainMethodMissingOption() throws IOException, GeneratorException {
-		IllegalStateException e = assertThrows(IllegalStateException.class, () -> Generator.main(new String[] {}));
+		IllegalStateException e = assertThrows(IllegalStateException.class, () -> Generator.main(new String[]{}));
 		assertThat(e.getCause()).isInstanceOf(MissingOptionException.class);
 	}
-	
+
 	@Test
 	void testGenerateFor() throws IOException, GeneratorException {
 		Class<?> locationClass = getClass();
@@ -223,7 +224,7 @@ class GeneratorTests {
 		String relativeTargetDir = "target";
 		Generator.generateFor(locationClass, rescources, relativeTargetDir);
 	}
-	
+
 	private void assertLineMatch(List<String> lines, String key, String expected) {
 		Optional<String> found = lines.stream().filter(line -> keyMatches(line, key)).findFirst();
 
