@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import javax.annotation.processing.Generated;
 import java.text.MessageFormat;
-;
 
 /**
  * Property keys from property_loader_format.properties

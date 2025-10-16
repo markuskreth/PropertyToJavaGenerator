@@ -1,7 +1,6 @@
 package de.kreth.property2java;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -31,7 +30,7 @@ class ConfigurationTest {
 		when(config.outputCharset()).thenCallRealMethod();
 
 		Writer outWriter = config.outWriter("application.properties");
-		assertTrue(outWriter instanceof FileWriter);
+        assertInstanceOf(FileWriter.class, outWriter);
 	}
 
 	@Test

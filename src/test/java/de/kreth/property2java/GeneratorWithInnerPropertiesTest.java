@@ -34,7 +34,7 @@ import org.mockito.quality.Strictness;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class GeneratorWithInnerPropertiesTest {
 
-	private String path = "application.properties";
+	private final String path = "application.properties";
 
 	@Mock
 	private Configuration config;

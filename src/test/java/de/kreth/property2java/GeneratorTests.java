@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -16,6 +17,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -25,7 +30,7 @@ import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
-
+import org.apache.commons.cli.MissingOptionException;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +48,7 @@ import freemarker.template.TemplateException;
 @MockitoSettings(strictness = Strictness.LENIENT)
 class GeneratorTests {
 
-	private String path = "application.properties";
+	private final String path = "application.properties";
 
 	@Mock
 	private Configuration config;
@@ -187,6 +192,38 @@ class GeneratorTests {
 		assertLineMatch(lines, "message_invoiceitem_allfieldsmustbeset", "message.invoiceitem.allfieldsmustbeset");
 	}
 
+	@Test
+	void testTemplateException() throws TemplateException, IOException {
+		Template template = mock(Template.class);
+
+		when(config.outWriter(anyString())).thenReturn(mock(Writer.class));
+		doThrow(new TemplateException(null)).when(template).process(any(Map.class), any(Writer.class));
+		
+		Generator generator = new Generator(config, template);
+		GeneratorException ex = assertThrows(GeneratorException.class, () -> generator.start());
+		assertThat(ex.getCause()).isInstanceOf(TemplateException.class);
+	}
+
+	@Test
+	void testMainMethod() throws IOException, GeneratorException {
+		Path source = Files.createTempFile(getClass().getSimpleName(), ".properties");
+		Generator.main(new String[] {"-t", "target", "-f", source.toString()});
+	}
+
+	@Test
+	void testMainMethodMissingOption() throws IOException, GeneratorException {
+		IllegalStateException e = assertThrows(IllegalStateException.class, () -> Generator.main(new String[] {}));
+		assertThat(e.getCause()).isInstanceOf(MissingOptionException.class);
+	}
+	
+	@Test
+	void testGenerateFor() throws IOException, GeneratorException {
+		Class<?> locationClass = getClass();
+		List<URL> rescources = new ArrayList<>();
+		String relativeTargetDir = "target";
+		Generator.generateFor(locationClass, rescources, relativeTargetDir);
+	}
+	
 	private void assertLineMatch(List<String> lines, String key, String expected) {
 		Optional<String> found = lines.stream().filter(line -> keyMatches(line, key)).findFirst();
 

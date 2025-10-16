@@ -30,7 +30,7 @@ public enum FreemarkerConfig {
 
 	}
 
-	private FreemarkerConfig() {
+	FreemarkerConfig() {
 		cfg = new Configuration(Configuration.VERSION_2_3_28);
 		cfg.setClassForTemplateLoading(this.getClass(), "/template/");
 		cfg.setDefaultEncoding("UTF-8");

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
@@ -14,7 +15,6 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic.Kind;
-
 
 import de.kreth.property2java.Format;
 import de.kreth.property2java.GeneratorException;
@@ -64,14 +64,14 @@ public class Property2JavaGenerator extends AbstractProcessor {
 			GenerateResourceBundleProperty2Java[] value = element
 					.getAnnotation(GenerateResourceBundleProperty2Javas.class).value();
 			for (GenerateResourceBundleProperty2Java generateResourceBundleProperty2Java : value) {
-				List<String> resources = Arrays.asList(generateResourceBundleProperty2Java.resource());
+				List<String> resources = Collections.singletonList(generateResourceBundleProperty2Java.resource());
 				generateElementProperties(element, resources, generateResourceBundleProperty2Java.format(), generateResourceBundleProperty2Java.options());
 			}
 		}
 	}
 
 	private void generateElementProperties(Element element, List<String> resources, Format format, GeneratorOptions[]  options) {
-		processingEnv.getMessager().printMessage(Kind.NOTE, "Generating Java for " + Arrays.asList(resources));
+		processingEnv.getMessager().printMessage(Kind.NOTE, "Generating Java for " + Collections.singletonList(resources));
 		try {
 			ProcessorConfiguration
 					.builder(processingEnv.getFiler(), element)
@@ -83,7 +83,7 @@ public class Property2JavaGenerator extends AbstractProcessor {
 			StringWriter out = new StringWriter();
 			e.printStackTrace(new PrintWriter(out));
 			out.flush();
-			processingEnv.getMessager().printMessage(Kind.ERROR, "Exception " + e + "\n" + out.toString(), element);
+			processingEnv.getMessager().printMessage(Kind.ERROR, "Exception " + e + "\n" + out, element);
 		}
 	}
 

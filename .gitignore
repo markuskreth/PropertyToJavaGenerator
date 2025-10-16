@@ -2,4 +2,5 @@
 .project
 .factorypath
 .settings
+.idea
 target

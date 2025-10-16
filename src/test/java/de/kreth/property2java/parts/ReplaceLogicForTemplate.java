@@ -5,7 +5,7 @@ public final class ReplaceLogicForTemplate {
 	static String doReplacements(String property, Object...objects) {
 		StringBuilder text = new StringBuilder();
 		int index = property.indexOf('{');
-		text.append(property.substring(0, index));
+		text.append(property, 0, index);
 
 		while (index >= 0) {
 			index++;
@@ -22,7 +22,7 @@ public final class ReplaceLogicForTemplate {
 				if (index <0) {
 					text.append(property.substring(endIndex + 1));
 				} else {
-					text.append(property.substring(endIndex + 1, index));
+					text.append(property, endIndex + 1, index);
 				}
 			} else {
 				endIndex = index;
