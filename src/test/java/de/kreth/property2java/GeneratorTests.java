@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
@@ -206,6 +207,24 @@ class GeneratorTests {
 	}
 
 	@Test
+	void testGenerateProp() throws IOException, TemplateException {
+		Template template = mock(Template.class);
+		Properties properties = new Properties();
+		StringWriter out = new StringWriter();
+		Generator generator = new Generator(config, template);
+		String fileName = "de.kreth.messages.properties";
+		generator.generate(properties, out, fileName , config);
+		
+		@SuppressWarnings("unchecked")
+		ArgumentCaptor<Map<String, Object>> dataModelCaptor = ArgumentCaptor.forClass(Map.class);
+		verify(template).process(dataModelCaptor.capture(), any(Writer.class));
+		assertThat(dataModelCaptor.getValue())
+			.containsEntry("bundle_base_name", "de.kreth.messages")		
+			.containsEntry("fileName", fileName)
+			.containsEntry("classname", "De_Kreth_Messages_Properties");
+	}
+	
+	@Test
 	void testMainMethod() throws IOException, GeneratorException {
 		Path source = Files.createTempFile(getClass().getSimpleName(), ".properties");
 		Generator.main(new String[]{"-t", "target", "-f", source.toString()});
@@ -243,4 +262,5 @@ class GeneratorTests {
 		return line.contains("\t" + key + " ");
 	}
 
+	
 }

@@ -69,7 +69,6 @@ public class Generator {
 
 	void generate(Properties properties, Writer out, String fileName, Configuration config)
 			throws IOException, TemplateException {
-
 		Map<String, Object> root = new HashMap<>();
 		root.put("generator_name", getClass().getName());
 		root.put("generation_date", dateTimeInstance.format(new Date()));

@@ -91,7 +91,7 @@ public class ProcessorConfiguration implements Configuration {
 	}
 
 	static final class Builder {
-		public GeneratorOptions[] options;
+		private GeneratorOptions[] options;
 		private final Filer filer;
 		private final Element element;
 		private final List<String> resourcenames;
@@ -113,7 +113,7 @@ public class ProcessorConfiguration implements Configuration {
 			return this;
 		}
 
-		public Builder addAll(String[] resourceNames) {
+		public Builder addAll(String... resourceNames) {
 			this.resourcenames.addAll(Arrays.asList(resourceNames));
 			return this;
 		}
