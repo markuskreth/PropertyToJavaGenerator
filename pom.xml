@@ -6,8 +6,24 @@
 	<artifactId>PropertyToJavaGenerator</artifactId>
 	<version>3.0.1-SNAPSHOT</version>
 
-	<properties>
+	<scm>
+		<developerConnection>scm:git:git@github.com:markuskreth/PropertyToJavaGenerator</developerConnection>
+		<connection>scm:git:git@github.com:markuskreth/PropertyToJavaGenerator.git</connection>
+		<tag>PropertyToJavaGenerator-3.0.0</tag>
+	</scm>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>kreth.snapshots</id>
+			<url>https://nexus.markuskreth.de/repository/maven-snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>kreth.releases</id>
+			<url>https://nexus.markuskreth.de/repository/maven-releases/</url>
+		</repository>
+	</distributionManagement>
+	
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
@@ -18,6 +34,18 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.openrewrite</groupId>
+				<artifactId>rewrite-bom</artifactId>
+				<version>8.75.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -122,25 +150,41 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.assertj</groupId>
-		    <artifactId>assertj-core</artifactId>
-		    <version>4.0.0-M1</version>
-		    <scope>test</scope>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>4.0.0-M1</version>
+			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.openrewrite.recipe</groupId>
+			<artifactId>rewrite-migrate-java</artifactId>
+			<version>3.14.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrewrite.recipe</groupId>
+			<artifactId>rewrite-rewrite</artifactId>
+			<version>0.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrewrite</groupId>
+			<artifactId>rewrite-maven</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openrewrite</groupId>
+			<artifactId>rewrite-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openrewrite.recipe</groupId>
+			<artifactId>rewrite-java-dependencies</artifactId>
+			<version>1.51.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrewrite.recipe</groupId>
+			<artifactId>rewrite-static-analysis</artifactId>
+			<version>2.29.0</version>
+		</dependency>
 	</dependencies>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>kreth.snapshots</id>
-			<url>https://nexus.markuskreth.de/repository/maven-snapshots/</url>
-		</snapshotRepository>
-		<repository>
-			<id>kreth.releases</id>
-			<url>https://nexus.markuskreth.de/repository/maven-releases/</url>
-		</repository>
-	</distributionManagement>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -152,41 +196,22 @@
 					<compilerArgs>-proc:none</compilerArgs>
 				</configuration>
 			</plugin>
-		    <plugin>
-		      <groupId>org.openrewrite.maven</groupId>
-		      <artifactId>rewrite-maven-plugin</artifactId>
-		      <version>6.15.0</version>
-		      <configuration>
-		        <activeRecipes>
-		          <recipe>org.openrewrite.java.migrate.UpgradeToJava17</recipe>
-		          <recipe>org.openrewrite.staticanalysis.JavaApiBestPractices</recipe>
-		          <recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
-		          <recipe>org.openrewrite.staticanalysis.CodeCleanup</recipe>
-		          <recipe>org.openrewrite.recipes.rewrite.OpenRewriteRecipeBestPractices</recipe>
-		        </activeRecipes>
-		        <exclusions>
-					<exclusion>**/generated/**</exclusion>
-				</exclusions>
-		      </configuration>
-		      
-		      <dependencies>
-		        <dependency>
-		          <groupId>org.openrewrite.recipe</groupId>
-		          <artifactId>rewrite-migrate-java</artifactId>
-		          <version>3.14.1</version>
-		        </dependency>
-				<dependency>
-					<groupId>org.openrewrite.recipe</groupId>
-					<artifactId>rewrite-rewrite</artifactId>
-					<version>0.5.0</version>
-				</dependency>
-		      </dependencies>
-		    </plugin>
+			<plugin>
+				<groupId>org.openrewrite.maven</groupId>
+				<artifactId>rewrite-maven-plugin</artifactId>
+				<version>6.15.0</version>
+				<configuration>
+					<activeRecipes>
+						<recipe>org.openrewrite.maven.BestPractices</recipe>
+					</activeRecipes>
+					<exclusions>
+						<exclusion>**/generated/**</exclusion>
+					</exclusions>
+				</configuration>
+				
+				<dependencies>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
-	<scm>
-		<developerConnection>scm:git:git@github.com:markuskreth/PropertyToJavaGenerator.gitt</developerConnection>
-		<connection>scm:git:git@github.com:markuskreth/PropertyToJavaGenerator.git</connection>
-    <tag>PropertyToJavaGenerator-3.0.0</tag>
-  </scm>
 </project>
