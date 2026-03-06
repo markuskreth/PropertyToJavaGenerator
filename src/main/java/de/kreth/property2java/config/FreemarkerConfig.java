@@ -16,16 +16,16 @@ public enum FreemarkerConfig {
 
 	public Template getTemplate(Format format) throws IOException {
 		switch (format) {
-		case WithInitializer:
-			return cfg.getTemplate("enum_template_with_initializer.tpl");
-		case WithInnerPropertyLoader:
-			return cfg.getTemplate("enum_template_with_inner_properties.tpl");
-		case WithInnerPropertyResourceBundle:
-			return cfg.getTemplate("enum_template_with_inner_propertyresourcebundle.tpl");
-		case WithUnaryOperatorParameter:
-			return cfg.getTemplate("enum_template.tpl");
-		default:
-			throw new IllegalArgumentException("Format " + format + " is not supported.");
+			case WithInitializer:
+				return cfg.getTemplate("enum_template_with_initializer.tpl");
+			case WithInnerPropertyLoader:
+				return cfg.getTemplate("enum_template_with_inner_properties.tpl");
+			case WithInnerPropertyResourceBundle:
+				return cfg.getTemplate("enum_template_with_inner_propertyresourcebundle.tpl");
+			case WithUnaryOperatorParameter:
+				return cfg.getTemplate("enum_template.tpl");
+			default:
+				throw new IllegalArgumentException("Format " + format + " is not supported.");
 		}
 
 	}

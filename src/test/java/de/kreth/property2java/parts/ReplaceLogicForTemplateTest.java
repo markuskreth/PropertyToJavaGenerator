@@ -76,10 +76,10 @@ public class ReplaceLogicForTemplateTest {
 	void testMissingReplacement() {
 		String property = "Start{1}End";
 		assertThatThrownBy(() -> doReplacements(property, "|0|"))
-			.isInstanceOf(IllegalStateException.class)
-			.hasMessageContaining("{1}")		// Orignal Placeholder
-			.hasMessageContaining("Position=5")	// Index of missing Placeholder
-			.hasMessageContaining(property);	// Orignal Text
+				.isInstanceOf(IllegalStateException.class)
+				.hasMessageContaining("{1}")		// Orignal Placeholder
+				.hasMessageContaining("Position=5")	// Index of missing Placeholder
+				.hasMessageContaining(property);	// Orignal Text
 	}
 
 }

@@ -71,7 +71,7 @@ public class Property2JavaGeneratorTest {
 		Set<Element> elements = new HashSet<>(List.of(annotatedElement));
 
 		when(roundEnv.getElementsAnnotatedWith(GenerateResourceBundleProperty2Javas.class))
-			.thenReturn((Set) elements);
+				.thenReturn((Set) elements);
 
 		processor.process(annotations, roundEnv);
 

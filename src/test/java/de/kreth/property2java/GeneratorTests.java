@@ -79,17 +79,14 @@ class GeneratorTests {
 		StringWriter out = new StringWriter();
 		when(config.outWriter(anyString())).thenReturn(out);
 
-		@SuppressWarnings("unchecked")
-		ArgumentCaptor<Map<String, Object>> rootCaptior = ArgumentCaptor.forClass(Map.class);
+		@SuppressWarnings("unchecked") ArgumentCaptor<Map<String, Object>> rootCaptior = ArgumentCaptor.forClass(Map.class);
 		generator.start();
 		verify(template).process(rootCaptior.capture(), any(Writer.class));
 		Map<String, Object> root = rootCaptior.getValue();
-		@SuppressWarnings("unchecked")
-		EnumSet<GeneratorOptions> options = (EnumSet<GeneratorOptions>) root.get("options");
+		@SuppressWarnings("unchecked") EnumSet<GeneratorOptions> options = (EnumSet<GeneratorOptions>) root.get("options");
 		assertThat(options).contains(GeneratorOptions.WithMessageFormatter, GeneratorOptions.WithSubstitutors);
 
-		@SuppressWarnings("unchecked")
-		List<String> imports = (List<String>) root.get("imports");
+		@SuppressWarnings("unchecked") List<String> imports = (List<String>) root.get("imports");
 		assertThat(imports).contains("java.text.MessageFormat");
 	}
 
@@ -103,13 +100,11 @@ class GeneratorTests {
 		StringWriter out = new StringWriter();
 		when(config.outWriter(anyString())).thenReturn(out);
 
-		@SuppressWarnings("unchecked")
-		ArgumentCaptor<Map<String, Object>> rootCaptior = ArgumentCaptor.forClass(Map.class);
+		@SuppressWarnings("unchecked") ArgumentCaptor<Map<String, Object>> rootCaptior = ArgumentCaptor.forClass(Map.class);
 		generator.start();
 		verify(template).process(rootCaptior.capture(), any(Writer.class));
 		Map<String, Object> root = rootCaptior.getValue();
-		@SuppressWarnings("unchecked")
-		EnumSet<GeneratorOptions> options = (EnumSet<GeneratorOptions>) root.get("options");
+		@SuppressWarnings("unchecked") EnumSet<GeneratorOptions> options = (EnumSet<GeneratorOptions>) root.get("options");
 		assertThat(options).contains(GeneratorOptions.WithSubstitutors);
 
 		assertFalse(root.containsKey("imports"));
@@ -215,13 +210,12 @@ class GeneratorTests {
 		String fileName = "de.kreth.messages.properties";
 		generator.generate(properties, out, fileName, config);
 
-		@SuppressWarnings("unchecked")
-		ArgumentCaptor<Map<String, Object>> dataModelCaptor = ArgumentCaptor.forClass(Map.class);
+		@SuppressWarnings("unchecked") ArgumentCaptor<Map<String, Object>> dataModelCaptor = ArgumentCaptor.forClass(Map.class);
 		verify(template).process(dataModelCaptor.capture(), any(Writer.class));
 		assertThat(dataModelCaptor.getValue())
-			.containsEntry("bundle_base_name", "de.kreth.messages")
-			.containsEntry("fileName", fileName)
-			.containsEntry("classname", "De_Kreth_Messages_Properties");
+				.containsEntry("bundle_base_name", "de.kreth.messages")
+				.containsEntry("fileName", fileName)
+				.containsEntry("classname", "De_Kreth_Messages_Properties");
 	}
 
 	@Test

@@ -46,9 +46,9 @@ public class ProcessorConfigurationTest {
 		when(fileObject.openReader(false)).thenReturn(input);
 
 		ProcessorConfiguration config = new ProcessorConfiguration(
-		ProcessorConfiguration.builder(filer, element)
-			.withFormat(Format.WithInnerPropertyLoader)
-			.addAll(resourceName));
+				ProcessorConfiguration.builder(filer, element)
+						.withFormat(Format.WithInnerPropertyLoader)
+						.addAll(resourceName));
 
 		assertThat(config.getPackage()).isEqualTo(packageName);
 	}

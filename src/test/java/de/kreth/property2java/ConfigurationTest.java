@@ -31,7 +31,7 @@ class ConfigurationTest {
 		when(config.outputCharset()).thenCallRealMethod();
 
 		Writer outWriter = config.outWriter("application.properties");
-        assertInstanceOf(FileWriter.class, outWriter);
+		assertInstanceOf(FileWriter.class, outWriter);
 	}
 
 	@Test

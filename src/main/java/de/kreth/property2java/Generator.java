@@ -91,8 +91,7 @@ public class Generator {
 
 		root.put("entries", entries);
 
-		@SuppressWarnings("unchecked")
-		List<String> propertyNames = Collections.list((Enumeration<String>) properties.propertyNames());
+		@SuppressWarnings("unchecked") List<String> propertyNames = Collections.list((Enumeration<String>) properties.propertyNames());
 		Collections.sort(propertyNames);
 
 		for (String propertyKeyString : propertyNames) {

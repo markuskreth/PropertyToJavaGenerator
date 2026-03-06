@@ -203,6 +203,8 @@
 				<configuration>
 					<activeRecipes>
 						<recipe>org.openrewrite.maven.BestPractices</recipe>
+						<recipe>org.openrewrite.java.OrderImports</recipe>
+						<recipe>org.openrewrite.java.format.AutoFormat</recipe>
 					</activeRecipes>
 					<exclusions>
 						<exclusion>**/generated/**</exclusion>
