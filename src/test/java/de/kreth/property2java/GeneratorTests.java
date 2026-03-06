@@ -213,17 +213,17 @@ class GeneratorTests {
 		StringWriter out = new StringWriter();
 		Generator generator = new Generator(config, template);
 		String fileName = "de.kreth.messages.properties";
-		generator.generate(properties, out, fileName , config);
-		
+		generator.generate(properties, out, fileName, config);
+
 		@SuppressWarnings("unchecked")
 		ArgumentCaptor<Map<String, Object>> dataModelCaptor = ArgumentCaptor.forClass(Map.class);
 		verify(template).process(dataModelCaptor.capture(), any(Writer.class));
 		assertThat(dataModelCaptor.getValue())
-			.containsEntry("bundle_base_name", "de.kreth.messages")		
+			.containsEntry("bundle_base_name", "de.kreth.messages")
 			.containsEntry("fileName", fileName)
 			.containsEntry("classname", "De_Kreth_Messages_Properties");
 	}
-	
+
 	@Test
 	void testMainMethod() throws IOException, GeneratorException {
 		Path source = Files.createTempFile(getClass().getSimpleName(), ".properties");
@@ -262,5 +262,5 @@ class GeneratorTests {
 		return line.contains("\t" + key + " ");
 	}
 
-	
+
 }
