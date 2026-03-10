@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -92,9 +93,9 @@ public class GeneratorWithInnerPropertiesTest {
 		assertNotNull(lineClass);
 
 		assertThat(linePackage)
-			.containsIgnoringWhitespaces("package de.kreth.property2java;");
+				.containsIgnoringWhitespaces("package de.kreth.property2java;");
 		assertThat(lineClass)
-			.containsIgnoringWhitespaces("public enum Application_Properties {");
+				.containsIgnoringWhitespaces("public enum Application_Properties {");
 
 	}
 

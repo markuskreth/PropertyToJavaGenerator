@@ -8,11 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +27,7 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
+
 
 import org.apache.commons.cli.MissingOptionException;
 import org.junit.jupiter.api.BeforeEach;
@@ -146,9 +143,9 @@ class GeneratorTests {
 				"Count of Braces doesn't match. Open = " + countOpenBaces + ", Close = " + countCloseBaces);
 
 		assertThat(linePackage)
-			.isEqualToIgnoringWhitespace("package de.kreth.property2java;");
+				.isEqualToIgnoringWhitespace("package de.kreth.property2java;");
 		assertThat(lineClass)
-			.isEqualToIgnoringWhitespace("public enum Application_Properties {");
+				.isEqualToIgnoringWhitespace("public enum Application_Properties {");
 
 	}
 
