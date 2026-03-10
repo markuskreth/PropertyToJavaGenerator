@@ -2,15 +2,17 @@ package de.kreth.property2java;
 
 import static de.kreth.property2java.TestPropertiesSource.testProperties;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +23,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -31,9 +32,7 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
-
 import org.apache.commons.cli.MissingOptionException;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -146,14 +145,10 @@ class GeneratorTests {
 		assertEquals(countCloseBaces, countOpenBaces,
 				"Count of Braces doesn't match. Open = " + countOpenBaces + ", Close = " + countCloseBaces);
 
-		assertNotNull(linePackage);
-		assertNotNull(lineClass);
-
-		assertThat(linePackage,
-				Matchers.stringContainsInOrder(Arrays.asList("package", "de.kreth.property2java", ";")));
-
-		assertThat(lineClass,
-				Matchers.stringContainsInOrder(Arrays.asList("public", "enum", "Application_Properties")));
+		assertThat(linePackage)
+			.isEqualToIgnoringWhitespace("package de.kreth.property2java;");
+		assertThat(lineClass)
+			.isEqualToIgnoringWhitespace("public enum Application_Properties {");
 
 	}
 
